@@ -2,6 +2,9 @@ site_name: My Docs
 site_url: https://mysite.example
 theme:
   name: material
+    custom_dir: overrides
+    #TODO: extend main.html in ovveriddes according to documentation to recereate the side nav block
+
   font:
     text: Merriweather Sans
     code: Red Hat Mono
@@ -53,5 +56,5 @@ extra:
   social:
     - icon: simple/youtube
       link: https://youtube.com/@james-willett
-      
+
 copyright: Copyright &copy; 2024 James Willett
