@@ -2,9 +2,6 @@ site_name: My Docs
 site_url: https://mysite.example
 theme:
   name: material
-    custom_dir: overrides
-    #TODO: extend main.html in ovveriddes according to documentation to recereate the side nav block
-
   font:
     text: Merriweather Sans
     code: Red Hat Mono
@@ -13,6 +10,7 @@ theme:
   # logo: assets/logo.png
   # favicon: assets/favicon.ico
   features:
+    - toc.integrate 
     - navigation.footer
   palette:
     # Dark Mode
