@@ -3,7 +3,7 @@ site_url: https://mysite.example
 theme:
   name: material
   font:
-    text: Merriweather Sans
+    text: Noto Sans
     code: Red Hat Mono
   icon:
     logo: fontawesome/solid/w
@@ -56,3 +56,5 @@ extra:
       link: https://youtube.com/@james-willett
 
 copyright: Copyright &copy; 2024 James Willett
+extra_css:
+  - stylesheets/extra.css
