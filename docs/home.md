@@ -29,16 +29,22 @@ This document assumes you know the following:
 
 1. Setting Up Your Project
 2. Understanding The Components of A Phaser Project
-3. Creating and Configuring Our Game Instance
+3. Creating Our Game Instance
 4. Building Our First Scene
 5. Building Our First Game Object
 6. Building Our First Enemy
 7. Keeping Score
-8. One More Scene
+8. A Final Scene
 
 ##Typographical Conventions
 
+1. Code Snippets 
+
+
 ##Notes and Warning Messages
+Throughout this Documentation you will see message blocks that denote important information. Each message block will indicate important information that while not part of the instructions, are important in ensuring you do not run into any obstacles along the way. See below for examples of the message blocks that will be used in this documentation.
+
+
 
 
 [1]: https://phaser.io/
