@@ -8,13 +8,12 @@ Hello and Welcome to PhaserFirst! By following this documentation, you will lear
 This documentation is intended for:
 
 - intermediate developers who want to learn the basics of the [Phaser][1] framework
-- TODO
 
 ##Prerequisite Knowledge
 
 This document assumes you know the following:
 
-- Knowledge of javascript and object orientated programming concepts
+- Experience with javascript and object orientated programming concepts
 - Using the terminal to navigate projects and execute commands
 - Comfortable using a code editor (like [VScode][2]) to develop CRUD (Create, Read, Update, Delete) applications
 - Familiarity with [NPM][3] (node package manager) to install node.js packages or modules
@@ -28,10 +27,14 @@ This document assumes you know the following:
 
 ##Procedures Overview
 
-1. TODO:Section name
-2. TODO: Seciton name
-3.  TODO: section name
-4.  TODO: section name
+1. Setting Up Your Project
+2. Understanding The Components of A Phaser Project
+3. Creating and Configuring Our Game Instance
+4. Building Our First Scene
+5. Building Our First Game Object
+6. Building Our First Enemy
+7. Keeping Score
+8. One More Scene
 
 ##Typographical Conventions
 
