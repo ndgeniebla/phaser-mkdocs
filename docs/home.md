@@ -46,12 +46,6 @@ $ echo Let's make an awesome app together!
 ```
 3. Menu and submenu relationships will be formatted like: `menu > submenu`
 
-ADD terminal commands using code formatting liek files
-add conveitons for the menu > submenu
-add image conventions
-
-2. 
-
 ##Notes and Warning Messages
 Throughout this Documentation you will see message blocks that denote important information. Each message block will indicate important information that while not part of the instructions, are important in ensuring you do not run into any obstacles along the way. See below for examples of the message blocks that will be used in this documentation.
 
