@@ -14,7 +14,7 @@ This documentation is intended for:
 This document assumes you know the following:
 
 - Experience using Javascript to build web based applications
-- Using the terminal to navigate projects and execute commands
+- Using the terminal to navigate projects and execute simple commands using bash
 - Comfortable using a code editor (like [VScode][2])
 - Experience using [Node.js][3] to build Javascript Applications
 - Familiarity using NPM (node package manager) to install node.js packages or modules
