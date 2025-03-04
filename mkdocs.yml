@@ -10,6 +10,7 @@ theme:
   # logo: assets/logo.png
   # favicon: assets/favicon.ico
   features:
+    - content.code.copy
     - toc.integrate 
     - navigation.footer
   palette:
