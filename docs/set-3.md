@@ -143,10 +143,6 @@ const game = new Phaser.Game(config);
 
 3. At the bottom-right of the VSCode window, click **Go Live** to start up the live server for the Phaser app.
 
-!!! Warning "Viewing the Live Server"
-
-    If a new browser window does not open after clicking **Go Live**, you should see "Port: XXXX" in place of where the button is, with XXXX being the port number. With this, you can open a browser window and type in `localhost:XXXX' and you should see the web page for your Phaser app.
-
 !!! Success "Success"
 
     Once the live server has started, you should see a black screen in the center of the browser window. This means that Phaser has properly loaded the game instance.
