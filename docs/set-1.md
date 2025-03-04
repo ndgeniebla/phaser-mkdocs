@@ -3,12 +3,10 @@
 ## Prerequisites (maybe cover this in overview?)
 - have the following installed on your machine:
     - Node.js
-    - TypeScript
 - have super basic knowledge of the git clone command (literally just running the thing)
 
 ## Overview
-- Using TypeScript and the Vite bundler for bundling all of source files into one file.
-- Phaser 3.88.2
+- Phaser 3
 - add details of what the expected result should be
     - at the end you should get a starter project with all the necessary files and libraries to start on your Phaser Project
 
