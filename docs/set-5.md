@@ -89,9 +89,9 @@ function update() {
 !!! Info "Note"
 
 ## Match Resetting
-Currently, when a player wins a match, the victory screen will appear, but it will stay stuck in that state with no way to get out. The only solution in this case is to refresh the web page on the browser.
+Currently, when a player wins a match, the victory screen will appear, but it will stay stuck in that state with no way to reset. The only way to play another match in this case is to refresh the web page.
 
-Having to refresh the page every time we want to play another round is annoying. The following instructions will walk you through implementing a reset feature, where we can easily start a new match after one has ended by pressing Spacebar.
+Having to refresh the page every time we want to play another round of Pong can get annoying. The following instructions will walk you through implementing a reset feature, where we can easily start a new match after one has ended by pressing Spacebar.
 
 
 1. In the `create()` function, add the Spacebar as a valid key in the game:
