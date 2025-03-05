@@ -36,6 +36,7 @@ This document assumes you know the following:
 ##Typographical Conventions
 
 1. File and Package names will be formatted like: `filefilefile.js`
+2. In code blocks if you see `//...` this means there is code in that location not currently relevant to this step
 
 
 ##Notes and Warning Messages
