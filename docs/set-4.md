@@ -192,7 +192,6 @@ function create() {
     this.physics.add.collider('ball', 'player1');
     this.physics.add.collider('ball', 'player2');
 
-    
 }
 
 ```
@@ -215,7 +214,6 @@ function create() {
 
     player1.setCollideWorldBounds(true);
     player2.setCollideWorldBounds(true);
-
     
 }
 
@@ -385,6 +383,7 @@ function update() {
     - How to configure a Phaser game instance
     - How to create a Phaser game instance
     - How to declare a scene and its functions for further development.
+
     ``` title="game.js" linenums="1"
     
     let ball;
@@ -393,13 +392,28 @@ function update() {
     let isGameStarted;
     let cursors;
     let keys = {}
+    let paddleSpreed = 350;
 
 
     function create() {
 
-    cursors = this.input.keyboard.createCursorKeys();
-    keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    ball = this.physics.add.sprite(
+        this.physics.world.bounds.width / 2,
+        this.physics.world.bounds.height / 2,
+        'ball' 
+    );
+        
+    player1 = this.physics.add.sprite(
+        this.physics.world.bounds.width - (ball.body.width / 2 + 1),
+        this.physics.world.bounds.height / 2,
+        'paddle',
+    );
+
+    player2 = this.physics.add.sprite(
+        (ball.body.width / 2 + 1),
+        this.physics.world.bounds.height / 2,
+        'paddle',
+    );
 
     player1.setCollideWorldBounds(true);
     player2.setCollideWorldBounds(true);
@@ -417,23 +431,23 @@ function update() {
         player2.body.setVelocityY(0);
 
         if (cursors.up.isDown) {
-            player1.body.setVelocityY(-);
+            player1.body.setVelocityY(-paddleSpeed);
         } else if (cursors.down.isDown) {
-            player1.body.setVelocityY();
+            player1.body.setVelocityY(paddleSpeed);
         }
         
         if (keys.w.isDown) {
-            player2.body.setVelocityY(-);
+            player2.body.setVelocityY(-paddleSpeed);
         } else if (keys.s.isDown) {
-            player2.body.setVelocityY();
+            player2.body.setVelocityY(paddleSpeed);
         }
 
 
         if (!gameStarted) {
             if (cursors.space.isDown) {
                 gameStarted = true;
-                const initialXSpeed = ;
-                const initialYSpeed = ;
+                const initialXSpeed = paddleSpeed;
+                const initialYSpeed = paddleSpeed;
                 ball.setVelocityX(initialXSpeed);
                 ball.setVelocityY(initialYSpeed);
             }
