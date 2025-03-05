@@ -1,7 +1,7 @@
 # Creating Our First Game Objects and Player Characters
 
 ## Prerequisites
-- We have configured our game instance of phaser
+- Ye have configured your game instance of phaser
 
 ## Overview
 In this section, we will cover how to preload assets, create game objects, assign them sprites and 
@@ -9,11 +9,11 @@ set their locations, and get them moving.
 
 ## Preloading Assets
 
-Now that we have our first game instance, it's time to add some game assets to give our player something to look at
+Now that we have our game instance, it's time to add some game assets to give our player something to look at and control
 
 !!! Info "Information"
 
-    Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
+        Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
 <br>
 
@@ -111,7 +111,7 @@ function create() {
 
     For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
 
-
+<br>
 
 5. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting the initial velocity for our ball value to get it moving.
 
@@ -127,7 +127,7 @@ function update() {
 
 ```
 
-
+<br>
 
 6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off of the edge of the screen. We can add collision by calling the `setCollisionWorldBounds` method on our 'ball' instance to let the game know this element should detect and react to colliding with the edge of our game instance.
 
@@ -142,7 +142,7 @@ ball.setCollisionWorldBounds(true);
 
 ```
 
-
+<br>
 
 7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
 
@@ -158,7 +158,7 @@ ball.setBounce(1, 1);
 
 ```
 
-
+<br>
 
 8. Next after setting bounce and collision, we can return to the top of the `game.js` file. Here we will add a `isGameStarted` variable
 
@@ -171,8 +171,7 @@ let player2;
 let isGameStarted;
 
 ```
-
-
+<br>
 
 9. To ensure the balls location only updates when the game is started, we can reference the variable we created in step eight and wrap it in an if function - we then move all 
 
@@ -191,7 +190,7 @@ function function update() {
 
 ```
 
-
+<br>
 
 10. Next, moving back inside our create() function, we are going to add collision to our paddles so that the ball bounces off of them as well. 
 
@@ -208,7 +207,7 @@ function create() {
 
 ```
 
-
+<br>
 
 11. Now that we've added collision to our paddles, you might notice some odd behavior. We need to make it so our paddles while being able to collide with the ball without being moved themselves -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function. We will also give it the same collision with the wporld boundary to make sure are paddles don't fly offscreen.
 
@@ -232,8 +231,7 @@ function create() {
 }
 
 ```
-
-
+<br>
 
 12. Add a cursors variable at the top of our file, this will represent our arrow keys. we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two.
 
@@ -252,8 +250,7 @@ let keys = {}
 
     You might be wondering why we declare keys as an object and cursors as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined set called cursors, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
 
-
-
+<br>
 
 13. we will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
 
@@ -269,8 +266,7 @@ let paddleSpreed = 350;
 
 ```
 
-
-
+<br>
 
 14. Back inside our create function, lets add input to our cursor variable and our keys variables by calling `createCursorKeys` and  `addKey` from the game instances input method. 
 
@@ -289,8 +285,7 @@ function create() {
 
 ```
 
-
-
+<br>
 
 15. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. 
 
@@ -328,7 +323,7 @@ function update() {
     You might be wondering why we use negative paddle speeds when moving the paddles up. This is because Phaser perceives all positive velocity y values to be moving from up to down, so if we want to move down to up, we have to use a negative value.
     If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
 
-
+<br>
 
 16. Now we need to make sure that when a key is not being pressed, we set our paddles velocity to 0. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function.
 
@@ -359,7 +354,7 @@ function update() {
 
 ```
 
-
+<br>
 
 17. Now inside our update function, we are going to tell the game what to do when the ball starts moving too quickly or slowly. We can define this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
 
@@ -398,3 +393,22 @@ function update() {
 !!! Success "Success"
 
     If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another.
+
+    
+    
+    ## Conclusion
+    By the end of this section, you will have learned the following:
+    
+    - How to configure a Phaser game instance
+    - How to create a Phaser game instance
+    - How to declare a scene and its functions for further development.
+    ``` title="game.js" linenums="1"
+    // add code here
+
+    ``` 
+    Well done! Now you can move onto the next step:
+    
+    **[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
+    
+    
+    
