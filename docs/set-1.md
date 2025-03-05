@@ -1,13 +1,11 @@
 # Setting up a Basic Phaser Project
 
 ## Prerequisites
-- Have basic knowledge of the git clone command (literally just running the thing)
+- Know how to operate the Command Prompt
+- Have VS Code installed
 
 ## Overview
-- Installing Live Server
-- Phaser 3
-- add details of what the expected result should be
-    - at the end you should get a starter project with all the necessary files and libraries to start on your Phaser Project
+In this first part of creating a version of Pong using Phaser 3, we will be setting up a basic project with all the starter files ready for development. We will also briefly cover installing and using the *Live Server* extension in VS Code for developing web apps.
 
 ## Setting up the Project
 
@@ -26,17 +24,32 @@
 
 4. Open Visual Studio Code (VS Code).
 5. Go to **File > Open Folder** and select the newly created `phaser-pong-starter` folder.
-    - Now you should see VS Code like this, with the project open and the following project structure: (show image)
+!!! Success "Project Repository"
+    The contents of the project directory should look like this once opened in VS Code:
+    ```
+    |-- phaser-pong-starter           # Root Directory
+            |-- assets/               # Game Assets (Storing Sprites and Audio Files)
+            |   |-- images            # Sprite Images
+            |   |   |-- ball.png       
+            |   |   |-- paddle.png    
+            |-- src/                  # Source Code
+            |   |-- game.js           # Main JavaScript File
+            |-- lib/                  # Downloaded Libraries
+            |   |-- phaser.d.ts       # Types for Phaser
+            |   |-- phaser.min.js     # Minified version of the Phaser 3 Library
+            |-- index.html            # Static Web page
+    ```
  
 ## Installing Live Server Extension
+
+!!! Info "Note"
+
+    If you already have the Live Server extension installed, you can skip this section and move onto the next one.
 
 The *Live Server* extension for VS Code is a useful tool that allows web developers to host a static site locally on their computer. When any modifications are made to the web app's code, the live server will automatically refresh, showing your new changes immediately in the browser.
 
 This extension will be very useful when developing the Pong game and other web projects, so we recommend installing it to streamline your workflow as a web developer.
 
-!!! Info "Note"
-
-    If you already have the Live Server extension installed, you can skip this section and move onto the next one.
 
 1. With VS Code open, press Ctrl+Shift+X or use the Navigation Bar on the very left to view Extensions.
 2. Search for "Live Server" using the search bar at the top.
@@ -70,6 +83,11 @@ With the *Live Server* extension now installed, we can now move onto running our
     ![The resulting page of the properly launched live server of the project](assets/images/live-server-started.png)
 
 ## Conclusion
+At the end of this section, you will have done and learned the following:
 
+- Cloned and set up the base project folder to start working on a new Phaser game.
+- Installing and running the *Live Server* extension in VS Code for development.
 
-Congratulations!
+Well done! We can now move to the next step:
+
+**[Creating and Configuring Our Game Instance](set-3.md)**
