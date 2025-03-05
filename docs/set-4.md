@@ -442,7 +442,6 @@ function update() {
             player2.body.setVelocityY(paddleSpeed);
         }
 
-
         if (!gameStarted) {
             if (cursors.space.isDown) {
                 gameStarted = true;
