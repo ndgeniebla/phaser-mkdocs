@@ -172,7 +172,7 @@ let isGameStarted;
 
 ```JS title="game.js" linenums="1"
 
-function update {
+function function update() {
     if (isGameStarted) {
         const initialVelocityX = 100;
         const initialVelocityY = 100;
@@ -190,7 +190,7 @@ function update {
 
 ``` JS title="game.js" linenums="1"
 
-create {
+function create() {
     //...
 
     this.physics.add.collider('ball', 'player1');
@@ -209,7 +209,7 @@ create {
 
 ``` JS title="game.js" linenums="1"
 
-create {
+function create() {
     //...
 
     this.physics.add.collider('ball', 'player1');
@@ -269,7 +269,7 @@ let paddleSpreed = 350;
 
 ``` JS title="game.js" linenums="1"
 
-create {
+function create() {
     //...
 
     cursors = this.input.keyboard.createCursorKeys();
@@ -285,12 +285,12 @@ create {
 
 
 
-15. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. By telling the game to set the velocity of the paddles to 0, we prevent them from continuing to move when our cursors are not pressed down. 
+15. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. 
 
 
 ``` JS title="game.js" linenums="1"
 
-update {
+function update() {
     //...
 
     if (cursors.up.isDown) {
@@ -323,16 +323,15 @@ update {
 
 
 
-16. 
+16. Now we need to make sure that when a key is not being pressed, we set our paddles velocity to 0. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function.
 
 ``` JS title="game.js" linenums="1"
 
+function update() {
+    //...
 
   player1.body.setVelocityY(0);
   player2.body.setVelocitY(0);
-
-update {
-    //...
 
     if (cursors.up.isDown) {
         player1.body.setVelocityY(-paddleSpeed);
@@ -359,7 +358,7 @@ update {
 
 ``` JS title="game.js" linenums="1"
 
-update {
+function update() {
     //...
 
     player1.body.setVelocityY(0);
