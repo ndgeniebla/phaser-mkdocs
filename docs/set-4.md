@@ -172,4 +172,17 @@ function update {
 
 ```
 
-10. 
+10. Next, moving back inside our create() function, we are going to add collision to our paddles so that the ball bounces off of them as well. 
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    this.physics.add.collider('ball', 'player1');
+    this.physics.add.collider('ball', 'player2');
+
+    
+    }
+
+```
