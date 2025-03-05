@@ -210,7 +210,7 @@ function update {
 
 ```
 
-12. Now add a cursor variable at the top of our file, we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two. We will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
+12. Add a cursors variable at the top of our file, this will represent our arrow keys. we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two. We will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
 
 
 ```JS title="game.js" linenums="1"
@@ -224,6 +224,10 @@ let keys = {}
 let paddleSpreed = 350;
 
 ```
+
+!!! Warning "Warning"
+
+    You might be wondering why we declare keys as an object and cursors as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined set called cursors, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
 
 13. Back inside our create function, lets add input to our cursor variable and our keys variables by calling `createCursorKeys` and  `addKey` from the game instances input method. 
 
@@ -325,3 +329,6 @@ let paddleSpreed = 350;
     Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
 
 
+!!! Success "Success"
+
+    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another.
