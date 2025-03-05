@@ -69,6 +69,7 @@ function create() {
 let ball;
 let player1;
 let player2;
+let isGameStarted;
 
 function create() {
     ball = this.physics.add.sprite( 
@@ -101,10 +102,74 @@ function create() {
     If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.
     For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
 
+5. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting an initial velocity for our ball value.
+
+```JS title="game.js" linenums="1"
+
+function update() {
+    const initialVelocityX = 100;
+    const initialVelocityY = 100;
+
+    ball.setVelocityX = initialVelocityX;
+    ball.setVelocityY = initialVelocityY;
+}
+
+```
+
+6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off of the edge of the screen. We can add collision by calling method on our 'ball' instance to let the game know this element should detect and react to colliding with the edge of our game instance.
+
+```JS title="game.js" linenums="1"
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+
+```
+
+7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
+
+```JS title="game.js" linenums="1"
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+ball.setBounce(1, 1);
+
+```
+
+8. Next after setting bounce and collision, we can return to the top of the `game.js` file. Here we will add a `isGameStarted` variable
 
 
+```JS title="game.js" linenums="1"
+
+let ball;
+let player1;
+let player2;
+let isGameStarted;
+
+```
+
+9. To ensure the balls location only updates when the game is started, we can reference the variable we created in step eight and wrap it in an if function - we then move all 
 
 
+```JS title="game.js" linenums="1"
 
+function update {
+    if (isGameStarted) {
+        const initialVelocityX = 100;
+        const initialVelocityY = 100;
+        ball.setVelocityX = initialVelocityX;
+        ball.setVelocityY = initialVelocityY;
+        isGameStarted = true;
+        }
+    } 
 
+```
 
+10. 
