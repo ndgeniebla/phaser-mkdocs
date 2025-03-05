@@ -186,3 +186,142 @@ function update {
     }
 
 ```
+
+11. Now that we've added collision to our paddles, you might notice some odd behavior. We need to make it so our paddles while being able to collide with the ball without being moved themselves -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function. We will also give it the same collision with the wporld boundary to make sure are paddles don't fly offscreen.
+
+
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    this.physics.add.collider('ball', 'player1');
+    this.physics.add.collider('ball', 'player2');
+
+    player1.setImmovable(true);
+    player2.setImmovable(true);
+
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
+
+    
+    }
+
+```
+
+12. Now add a cursor variable at the top of our file, we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two. We will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
+
+
+```JS title="game.js" linenums="1"
+
+let ball;
+let player1;
+let player2;
+let isGameStarted;
+let cursors;
+let keys = {}
+let paddleSpreed = 350;
+
+```
+
+13. Back inside our create function, lets add input to our cursor variable and our keys variables by calling `createCursorKeys` and  `addKey` from the game instances input method. 
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    cursors = this.input.keyboard.createCursorKeys();
+    keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W); 
+    //don't worry! This might look intimidating but it simply lets our game instance know to expect input from the W key
+
+    keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+
+    
+    }
+
+```
+
+14. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. By telling the game to set the velocity of the paddles to 0, we prevent them from continuing to move when our cursors are not pressed down. 
+
+
+``` JS title="game.js" linenums="1"
+
+ update {
+    //...
+
+    player1.body.setVelocityY(0);
+    player2.body.setVelocitY(0);
+
+    if (cursors.up.isDown) {
+        player1.body.setVelocityY(-paddleSpeed);
+    }
+
+    if (cursors.down.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+
+        if (keys.w.isDown) {
+        player2.body.setVelocityY(-paddleSpeed);
+    }
+
+    if (keys.s.isDown) {
+        player2.body.setVelocityY(paddleSpeed);
+    }
+    
+
+    }
+
+```
+
+!!! Info "Information"
+
+    You might be wondering what the code means as the wording is odd, `cursor.down.isDown`? What this actually means is quite simple. isDown in this context simply means when the key is pressed down. 
+
+!!! Info "Information"
+
+    You might be wondering why we use negative paddle speeds when moving the paddles up. This is because Phaser perceives all positive velocity y values to be moving from up to down, so if we want to move down to up, we have to use a negative value.
+    If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
+
+
+!!! Success "Success"
+
+    at this point your project should have two functioning paddles that are able to move up and down when the cursors are pressed and stop when they are not. The Ball should be wildly bouncing around your screen - don't worry! We will be fixing that in our next step.
+
+15. Now inside our update function, we are going to tell the game what to do when the ball starts moving too quickly or slowly. We can define this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
+
+ ``` JS title="game.js" linenums="1"
+
+ update {
+    //...
+
+    player1.body.setVelocityY(0);
+    player2.body.setVelocitY(0);
+
+    if (cursors.up.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+
+    if (cursors.down.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+    
+    if (ball.body.velocity.y > paddleSpeed) {
+        ball.body.setVelocityY(paddleSpeed);
+    } 
+
+     if (ball.body.velocity.y < -paddleSpeed) {
+        ball.body.setVelocityY(-paddleSpeed);
+    } 
+
+    }
+
+```
+
+!!! Example "Experiment"
+
+    Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
+
+
