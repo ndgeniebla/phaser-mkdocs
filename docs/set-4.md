@@ -16,7 +16,7 @@ Now that we have our game instance, it's time to add some game assets to give ou
         Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
 <br>
-1. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
+3. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
 
 ```JS title="game.js" linenums="1"
 
@@ -309,7 +309,7 @@ function update() {
     If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
 
 <br>
-16. Now we need to make sure that when a key is not being pressed, we set our paddles velocity to 0. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function.
+16. Now we need to make sure that when a key is not being pressed. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
 
 ``` JS title="game.js" linenums="1"
 
@@ -375,7 +375,7 @@ function update() {
 
 !!! Success "Success"
 
-    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another.
+    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
 
     
     
@@ -386,10 +386,62 @@ function update() {
     - How to create a Phaser game instance
     - How to declare a scene and its functions for further development.
     ``` title="game.js" linenums="1"
-    // add code here
+    
+    let ball;
+    let player2;
+    let player1;
+    let isGameStarted;
+    let cursors;
+    let keys = {}
+
+
+    function create() {
+
+    cursors = this.input.keyboard.createCursorKeys();
+    keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
+    ball.setCollideWorldBounds(true);
+    ball.setBounce(1, 1);
+    player1.setImmovable(true);
+    player2.setImmovable(true);
+    this.physics.add.collider(ball, player1);
+    this.physics.add.collider(ball, player2);
+
+    }
+
+    function update() {
+        player1.body.setVelocityY(0);
+        player2.body.setVelocityY(0);
+
+        if (cursors.up.isDown) {
+            player1.body.setVelocityY(-);
+        } else if (cursors.down.isDown) {
+            player1.body.setVelocityY();
+        }
+        
+        if (keys.w.isDown) {
+            player2.body.setVelocityY(-);
+        } else if (keys.s.isDown) {
+            player2.body.setVelocityY();
+        }
+
+
+        if (!gameStarted) {
+            if (cursors.space.isDown) {
+                gameStarted = true;
+                const initialXSpeed = ;
+                const initialYSpeed = ;
+                ball.setVelocityX(initialXSpeed);
+                ball.setVelocityY(initialYSpeed);
+            }
+        }
+    }
 
     ``` 
-    Well done! Now you can move onto the next step:
+    Well done :partying_face:! Now you can move onto the next step:
     
     **[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
     
