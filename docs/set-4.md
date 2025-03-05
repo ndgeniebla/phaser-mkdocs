@@ -15,6 +15,8 @@ Now that we have our first game instance, it's time to add some game assets to g
 
     Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
+<br>
+
 1. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
 
 ```JS title="game.js" linenums="1"
@@ -30,6 +32,8 @@ function preload() {
     
     this function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
+<br>
+
 2. Outside the create function define our `ball` variable.
 
 ```JS title="game.js" linenums="1"
@@ -41,6 +45,8 @@ function create() {
 
 
 ```
+
+<br>
 
 3. inside the create function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
 
@@ -62,6 +68,7 @@ let ball;
 
     Try setting the sprite to `paddle` and notice where on the paddle the game considers the center. Think about how this would affect our placement of objects - we don't want our characters to clip off screen when they are located at the edge afterall. If you wanted to modify the center point of an object- try calling the setOrigin method. 
 
+<br>
 
 4. Now lets add our paddle. We are going to declare two players outside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
 
