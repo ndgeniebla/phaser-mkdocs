@@ -2,6 +2,6 @@
 
 | Symptoms | Probable Cause | Action |
 | -------- | -------------- | ------ |
-| `GET`       | :material-check:     Fetch resource  ||
-| `PUT`       | :material-check-all: Update resource ||
-| `DELETE`    | :material-close:     Delete resource ||
+| Blank White Web Page | The HTML element that Phaser is looking to hook the game onto is missing ||
+| | ||
+| | Generic Phaser Error ||
