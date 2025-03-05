@@ -47,8 +47,6 @@ let p2victoryText;
     p2victoryText.setOrigin(0.5);
 } // end of create() function
 ```
-    1. hello
-    2. The `setVisible()` method
     
 3. In the `update()` function, add the following checks to see which player has won, as well as make the correct victory text appear:
 ```JS title="game.js" linenums="92" hl_lines="10-20"

@@ -5,7 +5,7 @@
 2. Cloned the Git Repository containing the project starter files.
 
 ## Overview
-placeholder or something i'll do this later
+In this section, we will cover how to configure a basic Phaser game instance, learn how to create and launch a Phaser game instance, and declaring the functions for a new scene for further development. 
 
 ## Configuring the Game Instance
 1. Navigate to the **src** folder and open the empty game.js file.
@@ -257,6 +257,6 @@ By the end of this section, you will have learned the following:
 
 Well done! Now you can move onto the next step:
 
-**[Building Our First Scene (or whatever this is supposed to be called)](set-4.md)**
+**[Creating Our First Game Objects and Player Characters](set-4.md)**
 
 
