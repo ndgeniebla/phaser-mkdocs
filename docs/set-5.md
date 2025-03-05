@@ -1,4 +1,4 @@
-# Adding Win Conditions, Match Restart, and Scoring System
+# Adding Win Conditions, Restart Feature, and Scoring System
 
 ## Overview
 
@@ -80,7 +80,7 @@ function update() {
 !!! Info "Note"
 
 ## Restarting the Match
-1. Inside the `create()` function, add the Spacebar as a key to monitor in the game:
+1. Inside the `create()` function, add the Spacebar as a valid key in the game:
 ```JS title="game.js" linenums="68" hl_lines="4"
     cursors = this.input.keyboard.createCursorKeys();
     keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
