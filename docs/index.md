@@ -28,11 +28,10 @@ This document assumes you know the following:
 
 ##Procedures Overview
 
-1. Setting Up Your Project (Neil)
-2. Understanding The Components of A Phaser Project (Jonathan)
-3. Creating Our Game Instance (Neil)
-4. Building Our First Scene, Game Object and Enemy (Jonathan)
-7. Keeping Score and A Final Scene (Neil)
+1. Setting Up Your Project 
+2. Creating Our Game Instance 
+3. Building Our First Scene, Game Object and Enemy 
+4. Keeping Score and A Final Scene 
 
 ##Typographical Conventions
 
