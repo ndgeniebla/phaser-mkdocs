@@ -1,0 +1,327 @@
+# Creating Our First Game Objects and Player Characters
+
+## Prerequisites
+1. We have configured our game instance of phaser
+
+## Overview
+In this section, we will cover how to preload assets, create game objects, assign them sprites and 
+set their locations, and get them moving.
+
+## Preloading Assets
+
+Now that we have our first game instance, it's time to add some game assets to give our player something to look at
+
+!!! Info "Information"
+
+    Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
+
+1. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
+
+```JS title="game.js" linenums="1"
+function preload() {
+    this.load.image('ball', '../assets/images/ball.png') // name, path
+    this.load.image('paddle', '../assets/images/paddle.png') // name, path
+    }
+
+```
+
+!!! Info "Information" 
+    
+    this function tells the game instance to load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
+
+2. Outside the create function define our ball
+
+```JS title="game.js" linenums="1"
+
+let ball;
+
+function create() {
+};
+
+
+```
+
+3. inside the create function, we are going to `add` our first game object: the ball. We will add a sprite (our preloaded image asset) to the ball, and place it in the center of our board by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
+
+```JS title="game.js" linenums="1"
+
+let ball;
+
+function create() {
+    ball = this.physics.add.sprite( 
+    this.physics.world.bounds.width / 2, // x parameter
+    this.physics.world.bounds.height / 2, // y parameter
+    `ball` // the `key` for our sprite we created in step 1
+    )
+};
+
+```
+
+!!! Example "Experiment"
+
+    Try setting the sprite to `paddle` TODO: add a section here where they set sprite to paddle to show that phaser autosets our anchor to the middle of a sprite, note a developer might not want to do this in other types of games like platformers and to experiment with different anchor placements.
+
+
+4. Now lets add our paddle. We are going to declare two players outside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles by referencing the balls width. 
+
+```JS title="game.js" linenums="1"
+
+let ball;
+let player1;
+let player2;
+let isGameStarted;
+
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+
+    player1 = this.physics.add.sprite( 
+        this.physics.world.bounds.width - (ball.body.width / 2),
+        // x parameter placed at the right edge of the screen and offset by half of the balls width.
+        
+        this.physics.world.bounds.height / 2, // y parameter
+        `paddle` // the `key` for our sprite we created in step 1
+    )
+
+    player2 = this.physics.add.sprite( 
+    ball.body.width / 2 + 1, 
+    // x parameter placed at the left edge of the screen a little over half the width of the ball
+
+    this.physics.world.bounds.height / 2, // y parameter
+    `paddle` // the `key` for our sprite we created in step 1
+    )
+
+};
+
+```
+
+!!! Danger "Danger"
+
+    Notice how in this step, the name of the sprite is not the same as the name of the variable.
+    If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.
+    For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
+
+5. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting an initial velocity for our ball value.
+
+```JS title="game.js" linenums="1"
+
+function update() {
+    const initialVelocityX = 100;
+    const initialVelocityY = 100;
+
+    ball.setVelocityX = initialVelocityX;
+    ball.setVelocityY = initialVelocityY;
+}
+
+```
+
+6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off of the edge of the screen. We can add collision by calling method on our 'ball' instance to let the game know this element should detect and react to colliding with the edge of our game instance.
+
+```JS title="game.js" linenums="1"
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+
+```
+
+7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
+
+```JS title="game.js" linenums="1"
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+ball.setBounce(1, 1);
+
+```
+
+8. Next after setting bounce and collision, we can return to the top of the `game.js` file. Here we will add a `isGameStarted` variable
+
+
+```JS title="game.js" linenums="1"
+
+let ball;
+let player1;
+let player2;
+let isGameStarted;
+
+```
+
+9. To ensure the balls location only updates when the game is started, we can reference the variable we created in step eight and wrap it in an if function - we then move all 
+
+
+```JS title="game.js" linenums="1"
+
+function update {
+    if (isGameStarted) {
+        const initialVelocityX = 100;
+        const initialVelocityY = 100;
+        ball.setVelocityX = initialVelocityX;
+        ball.setVelocityY = initialVelocityY;
+        isGameStarted = true;
+        }
+    } 
+
+```
+
+10. Next, moving back inside our create() function, we are going to add collision to our paddles so that the ball bounces off of them as well. 
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    this.physics.add.collider('ball', 'player1');
+    this.physics.add.collider('ball', 'player2');
+
+    
+    }
+
+```
+
+11. Now that we've added collision to our paddles, you might notice some odd behavior. We need to make it so our paddles while being able to collide with the ball without being moved themselves -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function. We will also give it the same collision with the wporld boundary to make sure are paddles don't fly offscreen.
+
+
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    this.physics.add.collider('ball', 'player1');
+    this.physics.add.collider('ball', 'player2');
+
+    player1.setImmovable(true);
+    player2.setImmovable(true);
+
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
+
+    
+    }
+
+```
+
+12. Now add a cursor variable at the top of our file, we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two. We will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
+
+
+```JS title="game.js" linenums="1"
+
+let ball;
+let player1;
+let player2;
+let isGameStarted;
+let cursors;
+let keys = {}
+let paddleSpreed = 350;
+
+```
+
+13. Back inside our create function, lets add input to our cursor variable and our keys variables by calling `createCursorKeys` and  `addKey` from the game instances input method. 
+
+``` JS title="game.js" linenums="1"
+
+ create {
+    //...
+
+    cursors = this.input.keyboard.createCursorKeys();
+    keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W); 
+    //don't worry! This might look intimidating but it simply lets our game instance know to expect input from the W key
+
+    keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+
+    
+    }
+
+```
+
+14. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. By telling the game to set the velocity of the paddles to 0, we prevent them from continuing to move when our cursors are not pressed down. 
+
+
+``` JS title="game.js" linenums="1"
+
+ update {
+    //...
+
+    player1.body.setVelocityY(0);
+    player2.body.setVelocitY(0);
+
+    if (cursors.up.isDown) {
+        player1.body.setVelocityY(-paddleSpeed);
+    }
+
+    if (cursors.down.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+
+        if (keys.w.isDown) {
+        player2.body.setVelocityY(-paddleSpeed);
+    }
+
+    if (keys.s.isDown) {
+        player2.body.setVelocityY(paddleSpeed);
+    }
+    
+
+    }
+
+```
+
+!!! Info "Information"
+
+    You might be wondering what the code means as the wording is odd, `cursor.down.isDown`? What this actually means is quite simple. isDown in this context simply means when the key is pressed down. 
+
+!!! Info "Information"
+
+    You might be wondering why we use negative paddle speeds when moving the paddles up. This is because Phaser perceives all positive velocity y values to be moving from up to down, so if we want to move down to up, we have to use a negative value.
+    If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
+
+
+!!! Success "Success"
+
+    at this point your project should have two functioning paddles that are able to move up and down when the cursors are pressed and stop when they are not. The Ball should be wildly bouncing around your screen - don't worry! We will be fixing that in our next step.
+
+15. Now inside our update function, we are going to tell the game what to do when the ball starts moving too quickly or slowly. We can define this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
+
+ ``` JS title="game.js" linenums="1"
+
+ update {
+    //...
+
+    player1.body.setVelocityY(0);
+    player2.body.setVelocitY(0);
+
+    if (cursors.up.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+
+    if (cursors.down.isDown) {
+        player1.body.setVelocityY(paddleSpeed);
+    }
+    
+    if (ball.body.velocity.y > paddleSpeed) {
+        ball.body.setVelocityY(paddleSpeed);
+    } 
+
+     if (ball.body.velocity.y < -paddleSpeed) {
+        ball.body.setVelocityY(-paddleSpeed);
+    } 
+
+    }
+
+```
+
+!!! Example "Experiment"
+
+    Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
+
+
