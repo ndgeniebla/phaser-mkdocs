@@ -9,11 +9,11 @@ set their locations, and get them moving.
 
 ## Preloading Assets
 
-Now that we have our game instance, it's time to add some game assets to give our players something to look at and control
+Now that we have our game instance, it's time to add some game assets to give our players something to look at and control.
 
 !!! Info "Information"
 
-    Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
+    The word "assets" has many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
 ## Making Our Ball
 
@@ -34,14 +34,15 @@ function preload() {
     this function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
 <br>
-2. directly above the create function we are going to define some empty variables and one `keys` object to use inside of our create and update functions.
+2. directly above the create function we are going to define some variables and one `keys` object to use inside of our create and update functions. We will use these variables throughout our examples
 
 ```JS title="game.js" linenums="1" hl_lines="1-6"
 
 let ball;
 let player1;
 let player2;
-let isGameStarted;
+let paddleSpeed = 350;
+let isGameStarted = false;
 let cursors;
 let keys = {};
 
@@ -95,7 +96,7 @@ function update() {
 ```JS title="game.js" linenums="1" hl_lines="2 8"
 
 function function update() {
-    if (isGameStarted) {
+    if (!isGameStarted) {
         const initialVelocityX = 100;
         const initialVelocityY = 100;
         ball.setVelocityX = initialVelocityX;
@@ -117,8 +118,8 @@ function function update() {
 
 function function update() {
     if (isGameStarted) {
-        const initialVelocityX = 100;
-        const initialVelocityY = 100;
+        const initialVelocityX = (Math.random() * 150) + 100;
+        const initialVelocityY = (Math.random() * 150) + 100;
         ball.setVelocityX = initialVelocityX;
         ball.setVelocityY = initialVelocityY;
         isGameStarted = true;
@@ -300,7 +301,7 @@ function create() {
 ```
 
 <br>
-2. Now inside our `update` function, we are going to tell the game what to do when these `cursors` or `keys` are pressed and what to do when they are not. We can do so using `if` statements to wrap around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
+2. Now inside our `update` function, we are going to tell the game what to do when these `cursors` or `keys` are pressed and what to do when they are not. We can do so using `if` statements wrapped around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
 
 
 ``` JS title="game.js" linenums="1" hl_lines="4-6 8-10 12-14 16-18"
@@ -400,8 +401,124 @@ function update() {
 
     Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
 
+!!! Success "Success"
 
+    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
+
+    ``` title="game.js" linenums="1"
     
+        const config = {
+            type: Phaser.AUTO,
+            parent: 'game',
+            width: 800,
+            height: 640,
+        
+            scale: {
+                mode: Phaser.Scale.RESIZE,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+        
+            scene: {
+                preload,
+                create,
+                update
+            },
+        
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: false
+                }
+            }
+        }
+        
+        const game = new Phaser.Game(config);
+        let ball;
+        let player1;
+        let player2;
+        let isGameStarted = false;
+        let cursors;
+        const paddleSpeed = 350;
+        let keys = {};
+        
+        function preload() {
+            this.load.image("ball", "../assets/images/ball.png");
+            this.load.image("paddle", "../assets/images/paddle.png");
+        }
+        
+        function create() {
+            ball = this.physics.add.sprite(
+                this.physics.world.bounds.width / 2,
+                this.physics.world.bounds.height / 2,
+                'ball'
+            );
+            ball.setCollideWorldBounds(true);
+        
+            ball.setBounce(1, 1);
+        
+            player1 = this.physics.add.sprite(
+                this.physics.world.bounds.width - (ball.body.width / 2 + 1),
+                this.physics.world.bounds.height / 2,
+                'paddle'
+            );
+            player1.setImmovable(true);
+            player1.setCollideWorldBounds(true);
+        
+            player2 = this.physics.add.sprite(
+                ball.body.width / 2 + 1,
+                this.physics.world.bounds.height / 2,
+                'paddle'
+            );
+
+            player2.setImmovable(true);
+            player2.setCollideWorldBounds(true);
+            
+            cursors = this.input.keyboard.createCursorKeys();
+            keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+            keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+            
+            this.physics.add.collider(ball, player1);
+            this.physics.add.collider(ball, player2);
+        }
+        
+        function update() {
+            if (!isGameStarted) {
+                const initialVelocityX = (Math.random() * 150) + 100;
+                const initialVelocityY = (Math.random() * 150) + 100;
+                ball.setVelocityX(initialVelocityX);
+                ball.setVelocityY(initialVelocityY);
+                isGameStarted = true;
+            }
+            
+
+            player1.body.setVelocityY(0);
+            player2.body.setVelocityY(0);
+            if (cursors.up.isDown) {
+                player1.body.setVelocityY(-paddleSpeed);
+            }
+            if (cursors.down.isDown) {
+                player1.body.setVelocityY(paddleSpeed);
+            }
+            if (keys.w.isDown) {
+                player2.body.setVelocityY(-paddleSpeed);
+            }
+            if (keys.s.isDown) {
+                player2.body.setVelocityY(paddleSpeed);
+            }
+            
+            
+            if (ball.body.velocity.y > paddleSpeed) {
+                ball.body.setVelocityY(paddleSpeed);
+            }
+            if (ball.body.velocity.y < -paddleSpeed) {
+                ball.body.setVelocityY(-paddleSpeed);
+            }
+        
+        }
+
+    ``` 
+
+        
     ## Conclusion
     By the end of this section, you will have learned the following:
     
@@ -409,80 +526,6 @@ function update() {
     - How to give game objects collision properties
     - How to create input to control game objects
 
-!!! Success "Success"
-
-    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
-
-    ``` title="game.js" linenums="1"
-    
-    let ball;
-    let player2;
-    let player1;
-    let isGameStarted;
-    let cursors;
-    let keys = {}
-    let paddleSpreed = 350;
-
-
-    function create() {
-
-    ball = this.physics.add.sprite(
-        this.physics.world.bounds.width / 2,
-        this.physics.world.bounds.height / 2,
-        'ball' 
-    );
-        
-    player1 = this.physics.add.sprite(
-        this.physics.world.bounds.width - (ball.body.width / 2 + 1),
-        this.physics.world.bounds.height / 2,
-        'paddle',
-    );
-
-    player2 = this.physics.add.sprite(
-        (ball.body.width / 2 + 1),
-        this.physics.world.bounds.height / 2,
-        'paddle',
-    );
-
-    player1.setCollideWorldBounds(true);
-    player2.setCollideWorldBounds(true);
-    ball.setCollideWorldBounds(true);
-    ball.setBounce(1, 1);
-    player1.setImmovable(true);
-    player2.setImmovable(true);
-    this.physics.add.collider(ball, player1);
-    this.physics.add.collider(ball, player2);
-
-    }
-
-    function update() {
-        player1.body.setVelocityY(0);
-        player2.body.setVelocityY(0);
-
-        if (cursors.up.isDown) {
-            player1.body.setVelocityY(-paddleSpeed);
-        } else if (cursors.down.isDown) {
-            player1.body.setVelocityY(paddleSpeed);
-        }
-        
-        if (keys.w.isDown) {
-            player2.body.setVelocityY(-paddleSpeed);
-        } else if (keys.s.isDown) {
-            player2.body.setVelocityY(paddleSpeed);
-        }
-
-        if (!gameStarted) {
-            if (cursors.space.isDown) {
-                gameStarted = true;
-                const initialXSpeed = paddleSpeed;
-                const initialYSpeed = paddleSpeed;
-                ball.setVelocityX(initialXSpeed);
-                ball.setVelocityY(initialYSpeed);
-            }
-        }
-    }
-
-    ``` 
     Well done :partying_face:! Now you can move onto the next step:
     
     **[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
