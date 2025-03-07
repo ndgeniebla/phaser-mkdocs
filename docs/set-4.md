@@ -519,16 +519,16 @@ function update() {
     ``` 
 
         
-    ## Conclusion
-    By the end of this section, you will have learned the following:
+## Conclusion
+By the end of this section, you will have learned the following:
     
-    - How to create game objects
-    - How to give game objects collision properties
-    - How to create input to control game objects
+- How to create game objects
+- How to give game objects collision properties
+- How to create input to control game objects
 
-    Well done :partying_face:! Now you can move onto the next step:
+Well done :partying_face:! Now you can move onto the next step:
     
-    **[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
+**[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
     
     
     
