@@ -105,7 +105,7 @@ function function update() {
 
 !!! Warning "Warning"
 
-    at this point your ball might have stopped moving- this is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the update function - it sees the `isGameStarted` variable is falsey and skips moving the ball.
+    at this point your ball might have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the update function - it sees the `isGameStarted` variable is falsey and skips moving the ball.
 
 <br>
 6. To ensure the ball starts moving when the game is started- we are going to add a simple `if` that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
@@ -129,10 +129,8 @@ function function update() {
 ```
 
 
-
-
 <br>
-6. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect and react to colliding with the edge_ of our screen.
+6. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect colliding with the edge of our screen.
 
 ```JS title="game.js" linenums="1" hl_lines="7"
 function create() {
@@ -164,6 +162,8 @@ ball.setCollisionWorldBounds(true);
 ball.setBounce(1, 1);
 
 ```
+
+
 
 
 
@@ -218,21 +218,7 @@ function create() {
 
     For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
 
-<br>
 
-
-<br>
-8. Next after setting bounce and collision, we can return to the top of the `game.js` file. Here we will add a `isGameStarted` variable
-
-
-```JS title="game.js" linenums="1"
-
-let ball;
-let player1;
-let player2;
-let isGameStarted;
-
-```
 <br>
 9. To ensure the balls location only updates when the game is started, we can reference the variable we created in step eight and wrap it in an if function - we then move all 
 

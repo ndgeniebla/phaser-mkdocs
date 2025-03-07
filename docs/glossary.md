@@ -9,3 +9,4 @@ sprite
 assets
 velocity
 clipping / clip out of bounds
+worldBounds
