@@ -73,10 +73,6 @@ let ball;
 
 ```
 
-!!! Example "Experiment"
-
-    Try setting the sprite to `paddle` and notice where on the paddle the game considers the center. Think about how this would affect our placement of objects - we don't want our characters to clip off screen when they are located at the edge afterall. If you wanted to modify the center point of an object- try calling the setOrigin method. 
-
 <br>
 4. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting the initial velocity for our ball value to get it moving.
 
@@ -384,18 +380,17 @@ function update() {
     Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
 
 
-!!! Success "Success"
-
-    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
-
-    
     
     ## Conclusion
     By the end of this section, you will have learned the following:
     
-    - How to configure a Phaser game instance
-    - How to create a Phaser game instance
-    - How to declare a scene and its functions for further development.
+    - How to create game objects
+    - How to give game objects collision properties
+    - How to create input to control game objects
+
+!!! Success "Success"
+
+    If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
 
     ``` title="game.js" linenums="1"
     
