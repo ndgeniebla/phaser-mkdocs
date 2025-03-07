@@ -15,8 +15,10 @@ Now that we have our game instance, it's time to add some game assets to give ou
 
     Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
+## Making Our Ball
+
 <br>
-3. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
+1. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
 
 ```JS title="game.js" linenums="1" hl_lines="2-3"
 
@@ -130,7 +132,7 @@ function function update() {
 
 
 <br>
-6. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect colliding with the edge of our screen.
+7. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect colliding with the edge of our screen.
 
 ```JS title="game.js" linenums="1" hl_lines="7"
 function create() {
@@ -149,7 +151,7 @@ ball.setCollideWorldBounds(true);
 
 
 <br>
-7. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it should bounce off instead of sticking to it.
+8. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it should bounce off instead of sticking to it.
 
 ```JS title="game.js" linenums="1"  hl_lines="8"
 function create() {
@@ -164,18 +166,7 @@ ball.setBounce(1, 1);
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+## Adding Player Characters: A Tale of Two Paddles
 
 4. Now lets add our paddle. We are going to declare two players outside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
 
@@ -218,24 +209,6 @@ function create() {
 
     For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
 
-
-<br>
-9. To ensure the balls location only updates when the game is started, we can reference the variable we created in step eight and wrap it in an if function - we then move all 
-
-
-```JS title="game.js" linenums="1"
-
-function function update() {
-    if (isGameStarted) {
-        const initialVelocityX = 100;
-        const initialVelocityY = 100;
-        ball.setVelocityX = initialVelocityX;
-        ball.setVelocityY = initialVelocityY;
-        isGameStarted = true;
-    }
-} 
-
-```
 
 <br>
 10. Next, moving back inside our create() function, we are going to add collision to our paddles so that the ball bounces off of them as well. 
@@ -303,7 +276,7 @@ let player2;
 let isGameStarted;
 let cursors;
 let keys = {}
-let paddleSpreed = 350;
+let paddleSpeed = 350;
 
 ```
 
