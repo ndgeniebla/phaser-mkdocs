@@ -87,21 +87,26 @@ function update() {
 
 
 <br>
-6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollisionWorldBounds` method on our 'ball' instance , we can let the game know this element should detect and react to colliding with the edge_ of our screen.
+6. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect and react to colliding with the edge_ of our screen.
 
-```JS title="game.js" linenums="1" hl_lines=""
+```JS title="game.js" linenums="1" hl_lines="7"
 function create() {
     ball = this.physics.add.sprite( 
         //... 
     )
-}
+};
 
-ball.setCollisionWorldBounds(true);
+ball.setCollideWorldBounds(true);
 
 ```
 
+!!!Warning "Warning"
+
+    Note the location of the `setColldeWorldBounds` method call. If you are running into errors in this step, make sure your calling this method after the create function- not inside of it. 
+
+
 <br>
-7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
+7. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it bounces off instead of sticking to it.
 
 ```JS title="game.js" linenums="1"
 function create() {
