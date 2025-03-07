@@ -85,6 +85,51 @@ function update() {
 
 ```
 
+<br>
+5. To ensure the balls location only `updates` when the game is started, we will add an `if` statement that contains all the code inside of our update function. Inside this if statement, we will reference our `isGameStarted` vvariable.
+
+
+```JS title="game.js" linenums="1" hl_lines="2 8"
+
+function function update() {
+    if (isGameStarted) {
+        const initialVelocityX = 100;
+        const initialVelocityY = 100;
+        ball.setVelocityX = initialVelocityX;
+        ball.setVelocityY = initialVelocityY;
+        isGameStarted = true;
+    }
+} 
+
+```
+
+!!! Warning "Warning"
+
+    at this point your ball might have stopped moving- this is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the update function - it sees the `isGameStarted` variable is falsey and skips moving the ball.
+
+<br>
+6. To ensure the ball starts moving when the game is started- we are going to add a simple `if` that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
+
+```JS title="game.js" linenums="1" hl_lines="10-12"
+
+function function update() {
+    if (isGameStarted) {
+        const initialVelocityX = 100;
+        const initialVelocityY = 100;
+        ball.setVelocityX = initialVelocityX;
+        ball.setVelocityY = initialVelocityY;
+        isGameStarted = true;
+    }
+
+    if (!isGameStarted) {
+        isGameStarted = true;
+    }
+} 
+
+```
+
+
+
 
 <br>
 6. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect and react to colliding with the edge_ of our screen.
@@ -102,13 +147,13 @@ ball.setCollideWorldBounds(true);
 
 !!!Warning "Warning"
 
-    Note the location of the `setColldeWorldBounds` method call. If you are running into errors in this step, make sure your calling this method after the create function- not inside of it. 
+    Note the location of the `setColldeWorldBounds` method call. If you are running into errors in this step, make sure you're calling this method after the create function- not inside of it. 
 
 
 <br>
-7. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it bounces off instead of sticking to it.
+7. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it should bounce off instead of sticking to it.
 
-```JS title="game.js" linenums="1"
+```JS title="game.js" linenums="1"  hl_lines="8"
 function create() {
     ball = this.physics.add.sprite( 
         //... 
@@ -119,6 +164,13 @@ ball.setCollisionWorldBounds(true);
 ball.setBounce(1, 1);
 
 ```
+
+
+
+
+
+
+
 
 
 
