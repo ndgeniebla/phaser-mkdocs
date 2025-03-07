@@ -51,6 +51,11 @@ function create() {
 
 ```
 
+
+!!! Info "Info"
+
+    You might be wondering why we declare keys as an object and cursors as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined object called cursors, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
+
 <br>
 3. inside the create function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
 
@@ -224,20 +229,29 @@ function create() {
 
     player1.setCollideWorldBounds(true);
     player2.setCollideWorldBounds(true);
-
 }
 
 ```
 
 <br>
-11. Now that we've added collision to our paddles, you might notice some odd behavior. We need to make it so our paddles while being able to collide with the ball without being moved themselves -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function. We will also give it the same collision with the wporld boundary to make sure are paddles don't fly offscreen.
+3. Now that we've added collision to our paddles, you might notice some odd behavior. We need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function.
 
 
 
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="17-18"
 
 function create() {
-    //...
+     ball = this.physics.add.sprite( 
+        //... 
+    )
+
+    player1 = this.physics.add.sprite( 
+        //..
+    )
+
+    player2 = this.physics.add.sprite( 
+        //..
+    )
 
     this.physics.add.collider('ball', 'player1');
     this.physics.add.collider('ball', 'player2');
@@ -247,62 +261,32 @@ function create() {
 }
 
 ```
-<br>
-12. Add a cursors variable at the top of our file, this will represent our arrow keys. we are working on allowing the players to use their keys to move the paddles so we will also want to add an empty object with the necessary keys for player two.
 
-``` JS title="game.js" linenums="1"
-
-let ball;
-let player1;
-let player2;
-let isGameStarted;
-let cursors;
-let keys = {}
-
-```
-
-!!! Warning "Warning"
-
-    You might be wondering why we declare keys as an object and cursors as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined set called cursors, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
+## Input and Control
 
 <br>
-13. we will also add a paddle speed variable so that we can easily change the speed if it doesn't feel right.
+1. Back inside our create function, lets call `this` game instances `input.keybord.addKey` and `this.input.keyboard.createCursorKeys`. This will add these keys to our gameInstance letting it know to watch these keys for events. 
 
-```JS title="game.js" linenums="1"
-
-let ball;
-let player1;
-let player2;
-let isGameStarted;
-let cursors;
-let keys = {}
-let paddleSpeed = 350;
-
-```
-
-<br>
-14. Back inside our create function, lets add input to our cursor variable and our keys variables by calling `createCursorKeys` and  `addKey` from the game instances input method. 
-
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="4-5 9"
 
 function create() {
     //...
 
     cursors = this.input.keyboard.createCursorKeys();
     keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W); 
-    //don't worry! This might look intimidating but it simply lets our game instance know to expect input from the W key
+    //don't worry! This might look intimidating but it simply lets our game
+    //instance know to expect input from the W key
 
     keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-
 }
 
 ```
 
 <br>
-15. Now inside our update function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. 
+2. Now inside our `update` function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. We can do so using `if` statements to wrap around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
 
 
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="4-6 8-10 12-14 16-18"
 
 function update() {
     //...
@@ -315,7 +299,7 @@ function update() {
         player1.body.setVelocityY(paddleSpeed);
     }
 
-        if (keys.w.isDown) {
+    if (keys.w.isDown) {
         player2.body.setVelocityY(-paddleSpeed);
     }
 
@@ -336,9 +320,9 @@ function update() {
     If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
 
 <br>
-16. Now we need to make sure that when a key is not being pressed. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
+3. Now we need to make sure that when a key is not being pressed, the paddles stop. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
 
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="4-5"
 
 function update() {
     //...
@@ -366,9 +350,9 @@ function update() {
 ```
 
 <br>
-17. Now inside our update function, we are going to tell the game what to do when the ball starts moving too quickly or slowly. We can define this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
+4. Now inside our update function, we are going to clamp the balls velocity. We can do this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
 
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="15-17 19-21"
 
 function update() {
     //...
