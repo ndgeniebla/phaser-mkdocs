@@ -5,6 +5,7 @@
 | `assets`    | all media used to create the game including music, images and animations   |
 | `velocity`  | speed of an object in a direction  |
 
-sprites
+sprite
 assets
 velocity
+clipping / clip out of bounds

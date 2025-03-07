@@ -1,24 +1,24 @@
 # Creating Our First Game Objects and Player Characters
 
 ## Prerequisites
-- Ye have configured your game instance of phaser
+- You have configured your game instance of phaser
 
 ## Overview
-In this section, we will cover how to preload assets, create game objects, assign them sprites and 
+In this section, we will cover how to preload assets, create game objects, assign them sprites,
 set their locations, and get them moving.
 
 ## Preloading Assets
 
-Now that we have our game instance, it's time to add some game assets to give our player something to look at and control
+Now that we have our game instance, it's time to add some game assets to give our players something to look at and control
 
 !!! Info "Information"
 
-        Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
+    Assets have many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
 <br>
 3. Inside the `preload` function defined inside of `src/game.js` add two function calls to `this` game instances `load.image()` method with the following name parameter and path path paramater.
 
-```JS title="game.js" linenums="1"
+```JS title="game.js" linenums="1" hl_lines="2-3"
 
 function preload() {
     this.load.image('ball', '../assets/images/ball.png') // name, path
@@ -32,11 +32,16 @@ function preload() {
     this function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
 <br>
-2. Outside the create function define our `ball` variable.
+2. directly above the create function we are going to define some empty variables and one `keys` object to use inside of our create and update functions.
 
-```JS title="game.js" linenums="1"
+```JS title="game.js" linenums="1" hl_lines="1-6"
 
 let ball;
+let player1;
+let player2;
+let isGameStarted;
+let cursors;
+let keys = {};
 
 function create() {
 };
@@ -47,7 +52,7 @@ function create() {
 <br>
 3. inside the create function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
 
-```JS title="game.js" linenums="1"
+```JS title="game.js" linenums="1" hl_lines="4-7"
 
 let ball;
 
@@ -66,6 +71,55 @@ let ball;
     Try setting the sprite to `paddle` and notice where on the paddle the game considers the center. Think about how this would affect our placement of objects - we don't want our characters to clip off screen when they are located at the edge afterall. If you wanted to modify the center point of an object- try calling the setOrigin method. 
 
 <br>
+4. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting the initial velocity for our ball value to get it moving.
+
+```JS title="game.js" linenums="1" hl_lines="2-3 5-6"
+
+function update() {
+    const initialVelocityX = 100;
+    const initialVelocityY = 100;
+
+    ball.setVelocityX = initialVelocityX;
+    ball.setVelocityY = initialVelocityY;
+}
+
+```
+
+
+<br>
+6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollisionWorldBounds` method on our 'ball' instance , we can let the game know this element should detect and react to colliding with the edge_ of our screen.
+
+```JS title="game.js" linenums="1" hl_lines=""
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+
+```
+
+<br>
+7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
+
+```JS title="game.js" linenums="1"
+function create() {
+    ball = this.physics.add.sprite( 
+        //... 
+    )
+}
+
+ball.setCollisionWorldBounds(true);
+ball.setBounce(1, 1);
+
+```
+
+
+
+
+
+
 4. Now lets add our paddle. We are going to declare two players outside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
 
 
@@ -108,48 +162,7 @@ function create() {
     For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
 
 <br>
-5. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting the initial velocity for our ball value to get it moving.
 
-```JS title="game.js" linenums="1"
-
-function update() {
-    const initialVelocityX = 100;
-    const initialVelocityY = 100;
-
-    ball.setVelocityX = initialVelocityX;
-    ball.setVelocityY = initialVelocityY;
-}
-
-```
-
-<br>
-6. Now we need to add collision, currently our ball simply continues in one direction until it dissapears off of the edge of the screen. We can add collision by calling the `setCollisionWorldBounds` method on our 'ball' instance to let the game know this element should detect and react to colliding with the edge of our game instance.
-
-```JS title="game.js" linenums="1"
-function create() {
-    ball = this.physics.add.sprite( 
-        //... 
-    )
-}
-
-ball.setCollisionWorldBounds(true);
-
-```
-
-<br>
-7. Now that our ball is colliding, we need to give it some bounce when it does or else it will stay wherever it lands once colliding with the edge of the screen. 
-
-```JS title="game.js" linenums="1"
-function create() {
-    ball = this.physics.add.sprite( 
-        //... 
-    )
-}
-
-ball.setCollisionWorldBounds(true);
-ball.setBounce(1, 1);
-
-```
 
 <br>
 8. Next after setting bounce and collision, we can return to the top of the `game.js` file. Here we will add a `isGameStarted` variable
