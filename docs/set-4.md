@@ -1,7 +1,7 @@
 # Creating Our First Game Objects and Player Characters
 
 ## Prerequisites
-- You have configured your game instance of phaser
+- You have configured your game instance of Phaser
 
 ## Overview
 In this section, we will cover how to preload assets, create game objects, assign them sprites,
@@ -62,7 +62,7 @@ let ball;
         ball = this.physics.add.sprite( 
         this.physics.world.bounds.width / 2, // x parameter
         this.physics.world.bounds.height / 2, // y parameter
-        `ball` // the `key` for our sprite we created in step 1
+        `ball` // sprite parameter
     )
 };
 
@@ -168,35 +168,26 @@ ball.setBounce(1, 1);
 
 ## Adding Player Characters: A Tale of Two Paddles
 
-4. Now lets add our paddle. We are going to declare two players outside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
+1. Now lets add our paddles. We are going to call the `this` game instances `physics.add.sprite` method inside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
 
 
-```JS title="game.js" linenums="1"
-
-let ball;
-let player1;
-let player2;
-let isGameStarted;
+```JS title="game.js" linenums="1" hl_lines="6-10 12-16"
 
 function create() {
-        ball = this.physics.add.sprite( 
+    ball = this.physics.add.sprite( 
         //... 
     )
 
     player1 = this.physics.add.sprite( 
-        this.physics.world.bounds.width - (ball.body.width / 2),
-        // x parameter placed at the right edge of the screen and offset by half of the balls width.
-        
-        this.physics.world.bounds.height / 2, // y parameter
-        `paddle` // the `key` for our sprite we created in step 1
+        this.physics.world.bounds.width - (ball.body.width / 2), // x parameter with an offset        
+        this.physics.world.bounds.height / 2, // y parameter with an offset
+        `paddle`
     )
 
     player2 = this.physics.add.sprite( 
-        ball.body.width / 2 + 1, 
-        // x parameter placed at the left edge of the screen a little over half the width of the ball
-
-        this.physics.world.bounds.height / 2, // y parameter
-        `paddle` // the `key` for our sprite we created in step 1
+        ball.body.width / 2 + 1, // x parameter with an offset
+        this.physics.world.bounds.height / 2, // y parameter with an offset
+        `paddle` 
     )
 };
 
@@ -211,15 +202,28 @@ function create() {
 
 
 <br>
-10. Next, moving back inside our create() function, we are going to add collision to our paddles so that the ball bounces off of them as well. 
+2. Now lets add collision to our paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world.
 
-``` JS title="game.js" linenums="1"
+``` JS title="game.js" linenums="1" hl_lines="14-15 17-18"
 
 function create() {
-    //...
+     ball = this.physics.add.sprite( 
+        //... 
+    )
+
+    player1 = this.physics.add.sprite( 
+        //..
+    )
+
+    player2 = this.physics.add.sprite( 
+        //..
+    )
 
     this.physics.add.collider('ball', 'player1');
     this.physics.add.collider('ball', 'player2');
+
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
 
 }
 
@@ -240,10 +244,6 @@ function create() {
 
     player1.setImmovable(true);
     player2.setImmovable(true);
-
-    player1.setCollideWorldBounds(true);
-    player2.setCollideWorldBounds(true);
-    
 }
 
 ```
