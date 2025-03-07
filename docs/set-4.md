@@ -54,7 +54,7 @@ function create() {
 
 !!! Info "Info"
 
-    You might be wondering why we declare keys as an object and cursors as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined object called cursors, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
+    You might be wondering why we declare `keys` as an object and `cursors` as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined object called `cursors`, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
 
 <br>
 3. inside the create function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
@@ -135,34 +135,32 @@ function function update() {
 <br>
 7. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect colliding with the edge of our screen.
 
-```JS title="game.js" linenums="1" hl_lines="7"
+```JS title="game.js" linenums="1" hl_lines="6"
 function create() {
     ball = this.physics.add.sprite( 
         //... 
-    )
+    );
+
+    ball.setCollideWorldBounds(true);
+
 };
 
-ball.setCollideWorldBounds(true);
 
 ```
-
-!!!Warning "Warning"
-
-    Note the location of the `setColldeWorldBounds` method call. If you are running into errors in this step, make sure you're calling this method after the create function- not inside of it. 
-
 
 <br>
 8. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it should bounce off instead of sticking to it.
 
-```JS title="game.js" linenums="1"  hl_lines="8"
+```JS title="game.js" linenums="1"  hl_lines="7"
 function create() {
     ball = this.physics.add.sprite( 
         //... 
     )
-}
+    
+    ball.setCollisionWorldBounds(true);
+    ball.setBounce(1, 1);
 
-ball.setCollisionWorldBounds(true);
-ball.setBounce(1, 1);
+}
 
 ```
 
@@ -199,11 +197,34 @@ function create() {
     Notice how in this step, the name of the sprite is not the same as the name of the variable.
     If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.
 
-    For example, if we called both variables `paddle` the game would get confused as to which player we are referring to.
+    ??? Danger "Click To See An Example"
+        ``` JS title="example.js" linenums="1" 
+
+        let paddle;
+        let paddle;
+
+        function create() {
+            ball = this.physics.add.sprite( 
+                //... 
+            )
+
+            paddle = this.physics.add.sprite( 
+                this.physics.world.bounds.width - (ball.body.width / 2), // x parameter with an offset        
+                this.physics.world.bounds.height / 2, // y parameter with an offset
+                `paddle`
+            )
+
+            paddle = this.physics.add.sprite( 
+                ball.body.width / 2 + 1, // x parameter with an offset
+                this.physics.world.bounds.height / 2, // y parameter with an offset
+                `paddle` 
+            )
+        };
+        ```
 
 
 <br>
-2. Now lets add collision to our paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world.
+2. Now lets add collision to our paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world. `this.physics.add.collider` takes two game objects as inputs and creates collision between those two objects. `gameObject.setCollideWorldBounds` adds collision between a game object and your screen.
 
 ``` JS title="game.js" linenums="1" hl_lines="14-15 17-18"
 
@@ -230,7 +251,7 @@ function create() {
 ```
 
 <br>
-3. Now that we've added collision to our paddles, you might notice some odd behavior. We need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function.
+3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function.
 
 
 
@@ -279,7 +300,7 @@ function create() {
 ```
 
 <br>
-2. Now inside our `update` function, we are going to tell the game what to do when these cursors are pressed and what to do when they are not. We can do so using `if` statements to wrap around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
+2. Now inside our `update` function, we are going to tell the game what to do when these `cursors` or `keys` are pressed and what to do when they are not. We can do so using `if` statements to wrap around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
 
 
 ``` JS title="game.js" linenums="1" hl_lines="4-6 8-10 12-14 16-18"
