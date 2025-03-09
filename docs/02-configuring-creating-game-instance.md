@@ -81,7 +81,7 @@ const config = {
     }
 };
 ```
-The `scale` object with the given attributes basically tells Phaser to:
+The `scale` object with the given attributes tells Phaser to:
 
     1. Resize the game screen to fit the space of its parent HTML element, regardless of aspect ratio.
     2. Render the game screen in the center of the window.
@@ -154,7 +154,7 @@ const game = new Phaser.Game(config);
     
 
 ## Declaring a Scene
-After creating a game instance, now we have to add a *scene* to it. Scenes in Phaser are basically screens with objects inside of them. A typical game will have multiple scenes with different objects in them.
+After creating a game instance, now we have to add a *scene* to it. Scenes in Phaser are screens with objects inside of them. A typical game will have multiple scenes with different objects in them.
 
 Since we're only making a simple Pong game, we only need to declare one scene and its associated functions.
 
