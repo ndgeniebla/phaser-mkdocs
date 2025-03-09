@@ -6,10 +6,11 @@
 | `assets`    | all media used to create the game including music, images and animations   |
 | `velocity`  | speed of an object in a direction  |
 
-sprite
-assets
-velocity
-clipping / clip out of bounds
-worldBounds
-key events
-constructor
+- sprite
+- assets
+- velocity
+- clipping / clip out of bounds
+- worldBounds
+- key events
+- constructor
+- coordinates (x and y)

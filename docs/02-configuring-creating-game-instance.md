@@ -154,6 +154,9 @@ const game = new Phaser.Game(config);
     
 
 ## Declaring a Scene
+After creating a game instance, now we have to add a *scene* to it. Scenes in Phaser are basically screens with objects inside of them. A typical game will have multiple scenes with different objects in them.
+
+Since we're only making a simple Pong game, we only need to declare one scene and its associated functions.
 
 1. Insert the `scene` attribute into the `config` object, and declare the `preload`, `create`, and `update` functions inside of it:
 ```JS title="game.js" linenums="1" hl_lines="12-16"
@@ -261,6 +264,6 @@ By the end of this section, you will have learned the following:
 
 Well done! Now you can move onto the next step:
 
-**[Creating Our First Game Objects and Player Characters](set-4.md)**
+**[Creating Our First Game Objects and Player Characters](03-creating-game-objects.md)**
 
 

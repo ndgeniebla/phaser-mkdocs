@@ -1,7 +1,7 @@
 # Pong: Creating Our First Game Objects and Player Characters
 
 ## Prerequisites
-- You have configured your game instance of Phaser
+- Configured and created a Phaser game instance.
 
 ## Overview
 In this section, we will cover how to preload assets, create game objects, assign them sprites,
@@ -13,7 +13,7 @@ Now that we have our game instance, it's time to add some game assets to give ou
 
 !!! Info "Information"
 
-    The word "assets" has many definitions in the real world. In the context of game developement, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
+    The word "assets" has many definitions in the real world. In the context of game development, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.
 
 ## Making Our Ball
 
@@ -31,7 +31,7 @@ function preload() {
 
 !!! Info "Information" 
     
-    this function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
+    This function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
 <br>
 2. directly above the create function we are going to define some variables and one `keys` object to use inside of our create and update functions. We will use these variables throughout our examples
@@ -58,7 +58,7 @@ function create() {
     You might be wondering why we declare `keys` as an object and `cursors` as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined object called `cursors`, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
 
 <br>
-3. inside the create function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
+3. Inside the `create()` function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
 
 ```JS title="game.js" linenums="1" hl_lines="4-7"
 
@@ -198,7 +198,7 @@ function create() {
     Notice how in this step, the name of the sprite is not the same as the name of the variable.
     If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.
 
-    ??? Danger "Click To See An Example"
+    ??? Abstract "Click To See An Example"
         ``` JS title="example.js" linenums="1" 
 
         let paddle;
@@ -399,14 +399,15 @@ function update() {
 
 !!! Example "Experiment"
 
-    Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game get's easier. By changing these values - we can increase and decrease the difficulty of our game!
+    Try playing with the speed of the ball by adding or decreasing its max and min velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations- where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game gets easier. By changing these values, we can increase and decrease the difficulty of our game!
 
 !!! Success "Success"
 
     If you have followed along with the tutorial so far, you should currently have a verson of pong that has two controllable paddles using the S and W keys for one player and the up and down arrows for another. 
 
-    ``` title="game.js" linenums="1"
-    
+    ??? Abstract "Code"
+        ```JS title="game.js" linenums="1"
+        
         const config = {
             type: Phaser.AUTO,
             parent: 'game',
@@ -516,7 +517,7 @@ function update() {
         
         }
 
-    ``` 
+        ``` 
 
         
 ## Conclusion
@@ -528,7 +529,7 @@ By the end of this section, you will have learned the following:
 
 Well done :partying_face:! Now you can move onto the next step:
     
-**[Adding Win Conditions, Math Resetting, and Score Systems](set-5.md)**
+**[Adding Win Conditions, Math Resetting, and Score Systems](04-final-features.md)**
     
     
     

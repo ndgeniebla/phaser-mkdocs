@@ -1,8 +1,8 @@
 # Setting up a Basic Phaser Project
 
 ## Prerequisites
-- Know how to operate the Command Prompt
-- Have VS Code installed
+- Know how to operate the Command Prompt.
+- Have VS Code installed.
 
 ## Overview
 In this first part of creating a version of Pong using Phaser 3, we will be setting up a basic project with all the starter files ready for development. We will also briefly cover installing and using the *Live Server* extension in VS Code for developing web apps.
@@ -94,4 +94,4 @@ At the end of this section, you will have done and learned the following:
 
 Well done! We can now move to the next step:
 
-**[Creating and Configuring Our Game Instance](set-3.md)**
+**[Creating and Configuring Our Game Instance](02-configuring-creating-game-instance.md)**

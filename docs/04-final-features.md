@@ -1,5 +1,8 @@
 # Pong: Adding Win Conditions, Match Resetting, and Scoring System
 
+## Prerequisites
+- Created the player paddles and ball inside of the Phaser scene, and coded their corresponding behaviours/logic.
+
 ## Overview
 In this final section of creating Pong in Phaser, we will walk through implementing the final features of the game:
 
@@ -12,7 +15,9 @@ The game in its current state does not properly track if any player has won the 
 
 
 1. Declare the variables `p1victoryText` and `p2victoryText` in global scope:
-```JS title="game.js" linenums="26" hl_lines="9-10"
+```JS title="game.js" linenums="1" hl_lines="11-12"
+//...
+
 const game = new Phaser.Game(config);
 let ball;
 let player1;
@@ -23,6 +28,8 @@ const paddleSpeed = 350;
 let keys = {};
 let p1victoryText;
 let p2victoryText;
+
+//...
 ```
 
 2. At the bottom of the `create()` function, define `p1victoryText` and `p2victoryText` as text added to the screen:
