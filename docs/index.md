@@ -93,7 +93,11 @@ Throughout this Documentation you will see message blocks that denote important 
 !!! Abstract "Code"
 
     This message block will contain the final code in a given section, and will usually be a collapsible block. You can copy the code inside and paste it into your code editor if you are having trouble getting it all working!
+    
+## Credits
+This documentation is based off of a video created by LogRocket: [How to build pong with Phaser3](https://www.youtube.com/watch?v=itXXERREvx8)
+
+The code we built upon is from the [phaser3-pong](https://github.com/bradydowling/phaser3-pong) repository maintained by Brady Dowling. We modified the code to include the Scoring System and Match Resetting feature that is covered in the [Adding Win Conditions, Match Resetting, and Scoring System](04-final-features.md) instruction set.
 
 [1]: https://phaser.io/
 [2]: https://code.visualstudio.com/
-[3]: https://nodejs.org/en
