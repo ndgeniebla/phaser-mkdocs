@@ -1,4 +1,6 @@
-#Introduction
+# Home
+
+##Introduction
 
 Hello and Welcome to PhaserFirst! By following this documentation, you will learn how to create a small [Phaser][1] project and kick off your game development journey. Throughout the document we will guide you step by step towards creating a simple version of the classic video game Pong with the goal of understanding the fundamentals of what makes up a Phaser project.
 > **[Phaser.js][1]** (more commonly known as Phaser) is a free open-source framework for developing web based 2D games with a focus on compact builds and flexible integration. Phaser provides the user with numerous time-tested tools to build the game you want, quickly and efficiently. 
