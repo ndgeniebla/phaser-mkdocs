@@ -85,7 +85,7 @@ function update() {
 }
 ```
 
-    1. The `if (ball.body.x ...)` conditionals essentially check if the ball's X coordinate has gone beyond a player's paddle, which determines which player lost the match.
+    1. The `if (ball.body.x ...)` conditionals checks if the ball's X coordinate has gone beyond a player's paddle, which determines which player lost the match.
     2. `p1victoryText` and `p2victoryText` are set to visible depending on who lost the match.
     3. The velocity of the ball is set to 0 for both the X and Y coordinates. This freezes the ball in place when the win condition is met.
 
@@ -178,7 +178,7 @@ function update() {
     2. Setting the `isGameStarted` boolean back to false will put the game in the same state when it is first launched.
 
 ## Scoring System
-Now that the game properly checks who won a match and matches can be easily reset by pressing Spacebar, the only thing that is left is to create a scoring system.
+Now that the game properly checks who won a match and matches can be reset by pressing Spacebar, the only thing that is left is to create a scoring system.
 
 1. Declare the variables that will be used to track and display the score in global scope:
 ```JS title="game.js" linenums="26" hl_lines="11-14"
