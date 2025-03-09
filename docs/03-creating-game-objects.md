@@ -34,7 +34,7 @@ function preload() {
     This function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
 <br>
-2. directly above the create function, define some variables and one `keys` object to use inside of our create and update functions. These variables are used throughout our examples.
+2. directly above the `create function`, define some variables and one `keys` object to use inside of our `create` and `update` functions. These variables are used throughout our examples.
 
 ```JS title="game.js" linenums="1" hl_lines="1-6"
 
@@ -75,7 +75,7 @@ let ball;
 ```
 
 <br>
-4. moving to our update function in the same file, add some behavior to our game objects. First, set the initial velocity for our ball value to get it moving.
+4. moving to our `update function` in the same file, add some behavior to our game objects. First, set the initial velocity for our ball value to get it moving.
 
 ```JS title="game.js" linenums="1" hl_lines="2-3 5-6"
 
@@ -90,7 +90,7 @@ function update() {
 ```
 
 <br>
-5. To ensure the balls location only `updates` when the game is started, add an `if` statement that contains all the code inside of our update function. Inside this if statement, reference our `isGameStarted` variable.
+5. To ensure the balls location only `updates` when the game is started, add an `if` statement that contains all the code inside of our `update function`. Inside this if statement, reference our `isGameStarted` variable.
 
 
 ```JS title="game.js" linenums="1" hl_lines="2 8"
@@ -109,7 +109,7 @@ function function update() {
 
 !!! Warning "Warning"
 
-    at this point your ball might have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the update function - it sees the `isGameStarted` variable is falsey and skips moving the ball.
+    at this point your ball might have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the `update function` - it sees the `isGameStarted` variable is falsey and skips moving the ball.
 
 <br>
 6. To ensure the ball starts moving when the game is started- add an `if` statement that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
@@ -252,7 +252,7 @@ function create() {
 ```
 
 <br>
-3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. Call the `setImmovable` method on both player objects iniside the create function.
+3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. Call the `setImmovable` method on both player objects iniside the `create function`.
 
 
 
@@ -283,7 +283,7 @@ function create() {
 ## Input and Control
 
 <br>
-1. Inside our create function, call `this` game instances `input.keybord.addKey` and `this.input.keyboard.createCursorKeys` to add these keys to our gameInstance. This lets it know to watch these keys for events. 
+1. Inside our `create function`, call `this` game instances `input.keybord.addKey` and `this.input.keyboard.createCursorKeys` to add these keys to our gameInstance. This lets it know to watch these keys for events. 
 
 ``` JS title="game.js" linenums="1" hl_lines="4-5 9"
 
@@ -338,7 +338,7 @@ function update() {
     If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
 
 <br>
-3. Make sure that when a key is not being pressed, the paddles stop. Call the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
+3. Make sure that when a key is not being pressed, the paddles stop. Call the `player1` and `player2` `setVelocityY` methods in the `update function` and assigning a velocity of 0 to the paddles.
 
 ``` JS title="game.js" linenums="1" hl_lines="4-5"
 
@@ -368,7 +368,7 @@ function update() {
 ```
 
 <br>
-4. Inside our update function, clamp the balls velocity. Do this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast or slow. By setting both these traits - we lock the ball into moving at one speed- perfect!
+4. Inside our `update function`, clamp the balls velocity. Do this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast or slow. By setting both these traits - we lock the ball into moving at one speed- perfect!
 
 ``` JS title="game.js" linenums="1" hl_lines="15-17 19-21"
 
