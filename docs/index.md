@@ -9,8 +9,7 @@ Hello and Welcome to PhaserFirst! By following this documentation, you will lear
 
 This documentation is intended for:
 
-- intermediate JavaScript developers who want to learn the basics of the [Phaser][1] framewor
--
+- intermediate JavaScript developers who want to learn the basics of the [Phaser][1] framework
 
 ##Prerequisite Knowledge
 
