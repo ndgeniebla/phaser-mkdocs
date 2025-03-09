@@ -24,7 +24,7 @@ Now that we have our game instance, it's time to add some game assets to give ou
 
 function preload() {
     this.load.image('ball', '../assets/images/ball.png') // name, path
-    this.load.image('paddle', '../assets/images/paddle.png') // name, path
+    this.load.image('paddle', 'assets/images/paddle.png') // name, path
 }
 
 ```
@@ -453,8 +453,8 @@ function update() {
         let keys = {};
         
         function preload() {
-            this.load.image("ball", "../assets/images/ball.png");
-            this.load.image("paddle", "../assets/images/paddle.png");
+            this.load.image("ball", "assets/images/ball.png");
+            this.load.image("paddle", "assets/images/paddle.png");
         }
         
         function create() {
