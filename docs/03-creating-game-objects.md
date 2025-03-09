@@ -36,7 +36,7 @@ function preload() {
 <br>
 2. directly above the `create function`, define some variables and one `keys` object to use inside of our `create` and `update` functions. These variables are used throughout our examples.
 
-```JS title="game.js" linenums="1" hl_lines="1-6"
+```JS title="game.js" linenums="1" hl_lines="1-7"
 
 let ball;
 let player1;
@@ -75,16 +75,16 @@ let ball;
 ```
 
 <br>
-4. moving to our `update function` in the same file, add some behavior to our game objects. First, set the initial velocity for our ball value to get it moving.
+4. moving to our `update function` in the same file, set the initial velocity for our `ball` to add some behavior to our game object and get it moving.
 
 ```JS title="game.js" linenums="1" hl_lines="2-3 5-6"
 
 function update() {
-    const initialVelocityX = 100;
-    const initialVelocityY = 100;
+    const initialVelocityX = (Math.random() * 150) + 100;
+    const initialVelocityY = (Math.random() * 150) + 100;
 
-    ball.setVelocityX = initialVelocityX;
-    ball.setVelocityY = initialVelocityY;
+    ball.setVelocityX(initialVelocityX);
+    ball.setVelocityY(initialVelocityY);
 }
 
 ```
@@ -97,11 +97,10 @@ function update() {
 
 function function update() {
     if (!isGameStarted) {
-        const initialVelocityX = 100;
-        const initialVelocityY = 100;
-        ball.setVelocityX = initialVelocityX;
-        ball.setVelocityY = initialVelocityY;
-        isGameStarted = true;
+        const initialVelocityX = (Math.random() * 150) + 100;
+        const initialVelocityY = (Math.random() * 150) + 100;
+        ball.setVelocityX(initialVelocityX);
+        ball.setVelocityY(initialVelocityY);
     }
 } 
 
@@ -109,23 +108,19 @@ function function update() {
 
 !!! Warning "Warning"
 
-    at this point your ball might have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the `update function` - it sees the `isGameStarted` variable is falsey and skips moving the ball.
+    At this point your ball will have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the `update function` - it sees the `isGameStarted` variable is falsey and skips moving the ball.
 
 <br>
 6. To ensure the ball starts moving when the game is started- add an `if` statement that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
 
-```JS title="game.js" linenums="1" hl_lines="10-12"
+```JS title="game.js" linenums="1" hl_lines="7"
 
 function function update() {
     if (isGameStarted) {
         const initialVelocityX = (Math.random() * 150) + 100;
         const initialVelocityY = (Math.random() * 150) + 100;
-        ball.setVelocityX = initialVelocityX;
-        ball.setVelocityY = initialVelocityY;
-        isGameStarted = true;
-    }
-
-    if (!isGameStarted) {
+        ball.setVelocityX(initialVelocityX);
+        ball.setVelocityY(initialVelocityY);
         isGameStarted = true;
     }
 } 
@@ -134,7 +129,7 @@ function function update() {
 
 
 <br>
-7. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. Call the `setCollideWorldBounds` method on our 'ball' to let the game know this element should detect colliding with the edge of our screen.
+7. Currently, our `ball` simply continues in one direction until it dissapears off the edge of the screen. Call the `setCollideWorldBounds` method on our `ball` to let the game know this element should detect colliding with the edge of our screen.
 
 ```JS title="game.js" linenums="1" hl_lines="6"
 function create() {
@@ -150,7 +145,7 @@ function create() {
 ```
 
 <br>
-8. Now that the ball is colliding, give it some bounce. Call `setBounce` on the `ball` variable to let the game know that when it does collide with something- it should bounce off instead of sticking to it.
+8. Now that the `ball` is colliding, give it some bounce. Call `setBounce` on the `ball` variable to let the game know that when it does collide with something- it should bounce off instead of sticking to it.
 
 ```JS title="game.js" linenums="1"  hl_lines="7"
 function create() {
@@ -171,12 +166,15 @@ function create() {
 1. Call the `this` game instances `physics.add.sprite` method inside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, offset the paddles `x` and `y` parameters. 
 
 
-```JS title="game.js" linenums="1" hl_lines="6-10 12-16"
+```JS title="game.js" linenums="1" hl_lines="9-13 15-19"
 
 function create() {
     ball = this.physics.add.sprite( 
         //... 
     )
+
+    ball.setCollisionWorldBounds(true);
+    ball.setBounce(1, 1);
 
     player1 = this.physics.add.sprite( 
         this.physics.world.bounds.width - (ball.body.width / 2), // x parameter with an offset        
@@ -199,10 +197,13 @@ function create() {
     If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.
 
     ??? Abstract "Click To See An Example"
-        ``` JS title="example.js" linenums="1" 
+        ``` JS title="example.js" linenums="1" hl_lines="1 2 12 15 18 21"
 
         let paddle;
         let paddle;
+
+        ball.setCollisionWorldBounds(true);
+        ball.setBounce(1, 1);
 
         function create() {
             ball = this.physics.add.sprite( 
@@ -227,12 +228,15 @@ function create() {
 <br>
 2. Now add collision to the paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world. `this.physics.add.collider` takes two game objects as inputs and creates collision between those two objects. `gameObject.setCollideWorldBounds` adds collision between a game object and your screen.
 
-``` JS title="game.js" linenums="1" hl_lines="14-15 17-18"
+``` JS title="game.js" linenums="1" hl_lines="17-18 20-21"
 
 function create() {
      ball = this.physics.add.sprite( 
         //... 
     )
+
+    ball.setCollisionWorldBounds(true);
+    ball.setBounce(1, 1);
 
     player1 = this.physics.add.sprite( 
         //..
@@ -242,8 +246,8 @@ function create() {
         //..
     )
 
-    this.physics.add.collider('ball', 'player1');
-    this.physics.add.collider('ball', 'player2');
+    this.physics.add.collider(ball, player1);
+    this.physics.add.collider(ball, player2);
 
     player1.setCollideWorldBounds(true);
     player2.setCollideWorldBounds(true);
@@ -252,16 +256,19 @@ function create() {
 ```
 
 <br>
-3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. Call the `setImmovable` method on both player objects iniside the `create function`.
+3. Next, we need to ensure that when the `ball` makes contact with our paddle, the paddle does not move -  they are `immovable`. Call the `setImmovable` method on both player objects iniside the `create function`.
 
 
 
-``` JS title="game.js" linenums="1" hl_lines="17-18"
+``` JS title="game.js" linenums="1" hl_lines="23-24"
 
 function create() {
      ball = this.physics.add.sprite( 
         //... 
     )
+
+    ball.setCollisionWorldBounds(true);
+    ball.setBounce(1, 1);
 
     player1 = this.physics.add.sprite( 
         //..
@@ -271,8 +278,11 @@ function create() {
         //..
     )
 
-    this.physics.add.collider('ball', 'player1');
-    this.physics.add.collider('ball', 'player2');
+    this.physics.add.collider(ball, player1);
+    this.physics.add.collider(ball, player2);
+
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
 
     player1.setImmovable(true);
     player2.setImmovable(true);
