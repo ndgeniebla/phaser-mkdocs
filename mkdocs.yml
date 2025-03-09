@@ -1,12 +1,11 @@
-site_name: My Docs
-site_url: https://mysite.example
+site_name: PhaserFirst
 theme:
   name: material
   font:
     text: Noto Sans
     code: Red Hat Mono
   icon:
-    logo: fontawesome/solid/w
+    logo: fontawesome/solid/gamepad
   # logo: assets/logo.png
   # favicon: assets/favicon.ico
   features:
