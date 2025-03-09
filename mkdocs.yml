@@ -55,7 +55,7 @@ markdown_extensions:
 
 extra:
   social:
-    - icon: simple/youtube
-      link: https://youtube.com/@james-willett
+    - icon: simple/github
+      link: https://github.com/ndgeniebla/phaser-mkdocs
 
-copyright: Copyright &copy; 2024 James Willett
+copyright: Copyright &copy; 2025 Neil Geniebla and Jonathan Young

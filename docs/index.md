@@ -1,42 +1,68 @@
 #Introduction
 
-Hello and Welcome to PhaserFirst! By following this documentation, you will learn how to create a small [Phaser][1] project and kick off your game developement journey. Throughout the document we will guide you step by step towards creating a simple version of the classic video game Pong with the goal of understanding the fundamentals of what makes up a Phaser project.
+Hello and Welcome to PhaserFirst! By following this documentation, you will learn how to create a small [Phaser][1] project and kick off your game development journey. Throughout the document we will guide you step by step towards creating a simple version of the classic video game Pong with the goal of understanding the fundamentals of what makes up a Phaser project.
 > **[Phaser.js][1]** (more commonly known as Phaser) is a free open-source framework for developing web based 2D games with a focus on compact builds and flexible integration. Phaser provides the user with numerous time-tested tools to build the game you want, quickly and efficiently. 
 
 ##Intended Users
 
 This documentation is intended for:
 
-- intermediate developers who want to learn the basics of the [Phaser][1] framework
+- intermediate JavaScript developers who want to learn the basics of the [Phaser][1] framework.
 
 ##Prerequisite Knowledge
 
 This document assumes you know the following:
 
-- Experience using Javascript to build web based applications
+- Experience using JavaScript to build web based applications
+- Basic knowledge of HTML
 - Using the terminal to navigate projects and execute commands
-- Comfortable using a code editor (like [VScode][2])
-- Experience using [Node.js][3] to build Javascript Applications
-- Familiarity using NPM (node package manager) to install node.js packages or modules
+- Comfortable using a code editor (like [Visual Studio Code][2])
 
-> For our tutorial we will be using [VScode][2]. Be aware that while using another code editor is possible, instructions and methods may not work for them. If you choose not to use [VScode][2], this tutorial may not work for you.
+> For our tutorial we will be using [Visual Studio Code (VSCode)][2]. Be aware that while using another code editor is possible, instructions and methods may not work for them. If you choose not to use [VScode][2], this tutorial may not work for you.
 
 ##Software Requirements
 
-- Node Package Manager v11.x or later
+- Any browser (Firefox or Chrome is preferred).
 - [Visual Studio Code][2]
 
 ##Procedures Overview
+The instruction sets below are an overview of creating a basic Pong game using Phaser 3.
 
-1. Setting Up Your Project 
-2. Creating Our Game Instance 
-3. Building Our First Scene, Game Object and Enemy 
-4. Keeping Score and A Final Scene 
+1. Setting up a Basic Phaser Project
+2. Pong: Creating and Configuring Our Game Instance 
+3. Pong: Creating Our First Game Objects and Player Characters
+4. Pong: Adding Win Conditions, Match Resetting, and Scoring System
 
 ##Typographical Conventions
 
-1. File and Package names will be formatted like: `filefilefile.js`
-2. In code blocks if you see `//...` this means there is code in that location not currently relevant to this step
+1. File names will be formatted like: `filename.js`
+2. In code blocks, if you see `//...` it means there is code in that location not currently relevant to this step:
+
+    ```JS
+    function f() {
+        //...
+        //code above is irrelevant
+
+        const relevantCode = "goes here";
+        
+        //code below is irrelevant
+        //...
+    }
+    ```
+
+3. Commands that are to be run inside of the terminal/command prompt will be formatted like: 
+
+    $ `command to be run`
+
+4. JavaScript variables and their values will be formatted in inline code blocks, e.g: 
+
+    "We will set `variableName` to `variableValue` because ..."
+    
+5. General actions in the operating system (like adding folders) and navigating/clicking user interface elements in a program are bolded, like so:
+
+    **File > New File**, **Open in Terminal**, **New Folder**
+
+    
 
 
 ##Notes and Warning Messages
@@ -61,8 +87,10 @@ Throughout this Documentation you will see message blocks that denote important 
 !!! Success "Success"
 
     This message block will mention what state your project should be in when you reach it. If you are looking to make sure your project is in the right state, take a look at this message block!
+    
+!!! Abstract "Code"
 
-
+    This message block will contain the final code in a given section, and will usually be a collapsible block. You can copy the code inside and paste it into your code editor if you are having trouble getting it all working!
 
 [1]: https://phaser.io/
 [2]: https://code.visualstudio.com/

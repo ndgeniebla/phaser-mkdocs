@@ -1,4 +1,4 @@
-# Creating Our First Game Objects and Player Characters
+# Pong: Creating Our First Game Objects and Player Characters
 
 ## Prerequisites
 - You have configured your game instance of Phaser

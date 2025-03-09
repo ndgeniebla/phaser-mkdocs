@@ -1,3 +1,4 @@
+# Glossary
 
 | Method      | Description                          |
 | ----------- | ------------------------------------ |
@@ -11,3 +12,4 @@ velocity
 clipping / clip out of bounds
 worldBounds
 key events
+constructor

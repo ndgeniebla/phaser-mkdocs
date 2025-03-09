@@ -1,14 +1,16 @@
-# Creating and Configuring Our Game Instance
+# Pong: Creating and Configuring Our Game Instance
 
 ## Prerequisites
 1. Have the *Live Server* extension installed on VSCode.
 2. Cloned the Git Repository containing the project starter files.
 
 ## Overview
-In this section, we will cover how to configure a basic Phaser game instance, learn how to create and launch a Phaser game instance, and declaring the functions for a new scene for further development. 
+In this section of creating Pong, we will cover how to configure a basic Phaser game instance, learn how to create and launch a Phaser game instance, and declaring the functions for a new scene for further development. 
 
 ## Configuring the Game Instance
-1. Navigate to the **src** folder and open the empty game.js file.
+Before creating a Phaser game instance, we have to configure it first. All the options for the configuration can be found inside [Phaser's Official Documentation](https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig), though we will only use a handful of these options in this simple Pong project.
+
+1. With VSCode open, navigate to the **src** folder and open the empty game.js file.
 2. At the start of the file, create an empty `config` object:
 ```JS title="game.js" linenums="1"
 const config = {
@@ -42,8 +44,9 @@ const config = {
 5. Navigate to the root of the directory and open `index.html` in VSCode.
 
 6. Inside of the body tag in the HTML, create a `div` with an ID of `game`, to match the value given to the `parent` attribute in the `config` object:
-```HTML title="index.html" linenums="26" hl_lines="3"
+```HTML title="index.html" linenums="26" hl_lines="4"
 <body>
+  <h1>Pong using Phaser 3</h1>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="game"></div>
   <script src="./lib/phaser.min.js"></script>
@@ -206,46 +209,47 @@ function update() {
 !!! Success "Congratulations! :partying_face:"
 
     You have now created a basic Phaser app that is now ready to be developed into a simple Pong game.
-    ```JS title="game.js" linenums="1"
-    const config = {
-        type: Phaser.AUTO,
-        parent: 'game',
-        width: 800,
-        height: 640,
-        
-        scale: {
-            mode: Phaser.Scale.RESIZE,
-            autoCenter: Phaser.Scale.CENTER_BOTH
-        },
-        
-        scene: {
-            preload,
-            create,
-            update
-        },
-        
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: false
+    ??? Abstract "Starter Code"
+        ```JS title="game.js" linenums="1"
+        const config = {
+            type: Phaser.AUTO,
+            parent: 'game',
+            width: 800,
+            height: 640,
+            
+            scale: {
+                mode: Phaser.Scale.RESIZE,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            
+            scene: {
+                preload,
+                create,
+                update
+            },
+            
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: false
+                }
             }
         }
-    }
 
-    const game = new Phaser.Game(config);
-    
-    function preload() {
+        const game = new Phaser.Game(config);
         
-    }
-    
-    function create() {
+        function preload() {
+            
+        }
         
-    }
-    
-    function update() {
+        function create() {
+            
+        }
         
-    }
-    ```
+        function update() {
+            
+        }
+        ```
 
 
 ## Conclusion

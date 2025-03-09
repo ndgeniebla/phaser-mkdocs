@@ -9,18 +9,22 @@ In this first part of creating a version of Pong using Phaser 3, we will be sett
 
 ## Setting up the Project
 
-1. Navigate to a directory where you want to have your game project stored, e.g. a **Projects** folder or a **Games** folder.
+1. Navigate to a directory where you want to have your game project stored, e.g. a "Projects" folder or a "Games" folder.
 
     !!! Info "Note"
         
         The following steps will create a new folder with the game files inside of the directory you navigated into, so there's no need to create a folder for the project itself.
 
-2. Right-click on an empty space in the directory and click **Open Command Prompt**.
+2. Right-click on an empty space in the directory and click **Open Command Prompt** or **Open in Terminal**.
 3. With Command Prompt open, copy and paste the following command into it and press Enter:
 
-    `$ git clone https://github.com/ndgeniebla/phaser-pong-starter.git`
+    $ `git clone https://github.com/ndgeniebla/phaser-pong-starter.git`
 
     This will create a new directory named `phaser-pong-starter` with all of the starter files inside of it.
+    
+    !!! Info "What does `git clone` do?"
+
+        `git clone` is a command in `git` that takes a remote repository (i.e. those that are hosted in places like [GitHub](https://github.com/) or [GitLab](https://gitlab.com)) and creates a clone of it on your computer. This command makes it easy to get existing code from the Internet and make modifications to it.
 
 4. Open Visual Studio Code (VS Code).
 5. Go to **File > Open Folder** and select the newly created `phaser-pong-starter` folder.
@@ -75,10 +79,10 @@ With the *Live Server* extension now installed, we can now move onto running our
 
 !!! Warning "Viewing the Live Server"
 
-    If a new browser window does not open after clicking **Go Live** button, you should see "Port: XXXX" in place of where the button is, with XXXX being the port number. With this, you can open a browser window and type in `localhost:XXXX' and you should see the web page for your Phaser app.
+    If a new browser window does not open after clicking **Go Live** button, you should see "Port: XXXX" in place of where the button is, with XXXX being the port number. With this, you can open a browser window and type in `localhost:XXXX' or '127.0.0.1:XXXX' for the URL and you should see the web page for your Phaser app.
 
 !!! Success "Web App Launched"
-    The web app is working properly if you see a blank white page with "Pong" as the title of the tab, as seen below:
+    The web app is working properly if you see a white page with the heading "Pong using Phaser 3" on it, as seen below:
 
     ![The resulting page of the properly launched live server of the project](assets/images/live-server-started.png)
 

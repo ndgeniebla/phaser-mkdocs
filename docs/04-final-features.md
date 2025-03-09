@@ -1,4 +1,4 @@
-# Adding Win Conditions, Match Resetting, and Scoring System
+# Pong: Adding Win Conditions, Match Resetting, and Scoring System
 
 ## Overview
 In this final section of creating Pong in Phaser, we will walk through implementing the final features of the game:
@@ -26,7 +26,10 @@ let p2victoryText;
 ```
 
 2. At the bottom of the `create()` function, define `p1victoryText` and `p2victoryText` as text added to the screen:
-```JS title="game.js" linenums="72" hl_lines="4-18"
+```JS title="game.js" linenums="1" hl_lines="7-21"
+function create() {
+    //...
+
     this.physics.add.collider(ball, player1);
     this.physics.add.collider(ball, player2);
     
@@ -45,11 +48,11 @@ let p2victoryText;
     );
     p2victoryText.setVisible(false);
     p2victoryText.setOrigin(0.5);
-} // end of create() function
+}
 ```
     
 3. In the `update()` function, add the following checks to see which player has won, as well as make the correct victory text appear:
-```JS title="game.js" linenums="92" hl_lines="10-20"
+```JS title="game.js" linenums="1" hl_lines="10-20"
 function update() {
     if (!isGameStarted) {
         const initialVelocityX = (Math.random() * 150) + 100;
@@ -72,6 +75,7 @@ function update() {
     }
 
     //...
+}
 ```
 
     1. The `if (ball.body.x ...)` conditionals essentially check if the ball's X coordinate has gone beyond a player's paddle, which determines which player lost the match.
@@ -86,6 +90,8 @@ function update() {
     
 !!! Info "Note"
 
+    Player 2 in this case is actually the player on the left side, and Player 1 is on the right.
+
 ## Match Resetting
 Currently, when a player wins a match, the victory screen will appear, but it will stay stuck in that state with no way to reset. The only way to play another match in this case is to refresh the web page.
 
@@ -93,14 +99,20 @@ Having to refresh the page every time we want to play another round of Pong can 
 
 
 1. In the `create()` function, add the Spacebar as a valid key in the game:
-```JS title="game.js" linenums="68" hl_lines="4"
+```JS title="game.js" linenums="1" hl_lines="7"
+function create() {
+    //...
+
     cursors = this.input.keyboard.createCursorKeys();
     keys.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     keys.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keys.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    
+    //...
+}
 ```
 2. In the `update()` function, add the following code under the `if (!isGameStarted)` conditional:
-```JS title="game.js" linenums="93" hl_lines="3-4"
+```JS title="game.js" linenums="1" hl_lines="3-4"
 function update() {
     if (!isGameStarted) {
         ball.body.x = this.physics.world.bounds.width / 2;
@@ -119,7 +131,7 @@ function update() {
     1. This puts the ball back in the center of the game screen when the match is restarted.
     
 3. In the `update()` function, add a conditional that will reset the game when the match has ended and if the Spacebar is pressed:
-```JS title="game.js" linenums="93" hl_lines="24-30"
+```JS title="game.js" linenums="1" hl_lines="24-30"
 function update() {
     if (!isGameStarted) {
         ball.body.x = this.physics.world.bounds.width / 2;
@@ -180,7 +192,10 @@ let p2Score = 0;
 ```
 
 2. In the `create()` function, define `scoreText` as text added to the screen:
-```JS title="game.js" linenums="79" hl_lines="17-22"
+```JS title="game.js" linenums="1" hl_lines="20-25"
+function create() {
+    //...
+
     p1victoryText = this.add.text(
         this.physics.world.bounds.width / 2,
         this.physics.world.bounds.height / 2,
@@ -203,7 +218,7 @@ let p2Score = 0;
         `${p2Score} : ${p1Score}`
     );
     scoreText.setOrigin(0.5);
-} //end of create() function
+}
 ```
 
 3. In the `update()` function, add logic which will increment the player's score in both win condition checks:
@@ -240,15 +255,19 @@ function update() {
     }
     
     //...
+}
 ```
 
-    !!! Question "Why have the `scoreAdded` boolean?"
+    !!! Info "Why have the `scoreAdded` boolean?"
     
-        The extra check for `scoreAdded` is necessary because Phaser calls the `update()` function on every single frame that the game renders. If this extra check isn't done, the `p1Score` and `p2Score` variables will increment by one on every single frame instead of only when the player scores.
+        The extra check for `scoreAdded` is necessary because Phaser calls the `update()` function on every frame that the game renders. If this extra check isn't done, the `p1Score` and `p2Score` variables will increment by one on every single frame instead of only when the player scores.
+        
+        So if the game runs at 60 frames per second, then `p1score` and `p2score` would end up incrementing 60 times a second, which is not what we want.
 
 
 4. In the `update()` function, set the `scoreAdded` boolean to `false` when the game is reset with Spacebar:
-```JS title="game.js" linenums="114" hl_lines="24"
+```JS title="game.js" linenums="1" hl_lines="25"
+function update() {
     if (ball.body.x > player1.body.x) {
         if (!scoreAdded) {
             p2Score++;
@@ -279,10 +298,12 @@ function update() {
     }
     
     //...
+}
 ```
 
 5. In the `update()` function, set the scores on the game screen to match the players' current scores:
-```JS title="game.js" linenums="134" hl_lines="10"
+```JS title="game.js" linenums="1" hl_lines="11"
+function update() {
     if (ball.body.x < player2.body.x || ball.body.x > player1.body.x) {
         if (keys.space.isDown) {
             isGameStarted = false;
@@ -293,6 +314,9 @@ function update() {
     }
 
     scoreText.setText(`${p2Score} : ${p1Score}`)
+    
+    //...
+}
 ```
 
 !!! Success "Completed Phaser Game"
