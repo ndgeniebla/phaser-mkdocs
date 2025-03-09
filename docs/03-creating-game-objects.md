@@ -34,7 +34,7 @@ function preload() {
     This function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective `load` methods. 
 
 <br>
-2. directly above the create function we are going to define some variables and one `keys` object to use inside of our create and update functions. We will use these variables throughout our examples
+2. directly above the create function, define some variables and one `keys` object to use inside of our create and update functions. These variables are used throughout our examples.
 
 ```JS title="game.js" linenums="1" hl_lines="1-6"
 
@@ -58,7 +58,7 @@ function create() {
     You might be wondering why we declare `keys` as an object and `cursors` as an empty variable. This is because of how Phaser recognizes keys - it treats all your arrow keys as one pre-defined object called `cursors`, other keys have to have their purpose defined individually. You'll notice as you continue through these instructions - we use slightly different language when creating our inputs - make sure to pay attention to the differences as they do not work interchangeably.
 
 <br>
-3. Inside the `create()` function, we are going to `add` our first game object: the ball. by calling `this` game instances `add.sprite` method we can add a sprite (our preloaded image asset) to the ball, and place it in the center of our board. We find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
+3. Inside the `create()` function, `add` your first game object: the ball. by calling `this` game instances `add.sprite` method it adds a sprite (our preloaded image asset) to the ball, and places it in the center of our board. Find the center by dividing `this` game instances `width` and `height` properties by two and settign those as the `x` and `y` coordinates for the ball. 
 
 ```JS title="game.js" linenums="1" hl_lines="4-7"
 
@@ -75,7 +75,7 @@ let ball;
 ```
 
 <br>
-4. moving to our update function in the same file, we are now going to add some behavior to our game objects. First, let's start by setting the initial velocity for our ball value to get it moving.
+4. moving to our update function in the same file, add some behavior to our game objects. First, set the initial velocity for our ball value to get it moving.
 
 ```JS title="game.js" linenums="1" hl_lines="2-3 5-6"
 
@@ -90,7 +90,7 @@ function update() {
 ```
 
 <br>
-5. To ensure the balls location only `updates` when the game is started, we will add an `if` statement that contains all the code inside of our update function. Inside this if statement, we will reference our `isGameStarted` vvariable.
+5. To ensure the balls location only `updates` when the game is started, add an `if` statement that contains all the code inside of our update function. Inside this if statement, reference our `isGameStarted` variable.
 
 
 ```JS title="game.js" linenums="1" hl_lines="2 8"
@@ -112,7 +112,7 @@ function function update() {
     at this point your ball might have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our `isGameStarted` variable to true. This means everytime the game calls the update function - it sees the `isGameStarted` variable is falsey and skips moving the ball.
 
 <br>
-6. To ensure the ball starts moving when the game is started- we are going to add a simple `if` that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
+6. To ensure the ball starts moving when the game is started- add an `if` statement that sets `isGameStarted` to true when the game calls the `update` function for the first time. 
 
 ```JS title="game.js" linenums="1" hl_lines="10-12"
 
@@ -134,7 +134,7 @@ function function update() {
 
 
 <br>
-7. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. By calling the `setCollideWorldBounds` method on our 'ball', we can let the game know this element should detect colliding with the edge of our screen.
+7. Currently, our ball simply continues in one direction until it dissapears off the edge of the screen. Call the `setCollideWorldBounds` method on our 'ball' to let the game know this element should detect colliding with the edge of our screen.
 
 ```JS title="game.js" linenums="1" hl_lines="6"
 function create() {
@@ -150,7 +150,7 @@ function create() {
 ```
 
 <br>
-8. Now that our ball is colliding, we need to give it some bounce. By calling `setBounce` on our ball, we let the game know that when it does collide with something- it should bounce off instead of sticking to it.
+8. Now that the ball is colliding, give it some bounce. Call `setBounce` on the `ball` variable to let the game know that when it does collide with something- it should bounce off instead of sticking to it.
 
 ```JS title="game.js" linenums="1"  hl_lines="7"
 function create() {
@@ -168,7 +168,7 @@ function create() {
 
 ## Adding Player Characters: A Tale of Two Paddles
 
-1. Now lets add our paddles. We are going to call the `this` game instances `physics.add.sprite` method inside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, we will offset the paddles `x` and `y` parameters. 
+1. Call the `this` game instances `physics.add.sprite` method inside of the `create` function. When declaring our players, it's important to remember that we won't want our paddles to be pressed up against the edge of the screen. To do this, offset the paddles `x` and `y` parameters. 
 
 
 ```JS title="game.js" linenums="1" hl_lines="6-10 12-16"
@@ -225,7 +225,7 @@ function create() {
 
 
 <br>
-2. Now lets add collision to our paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world. `this.physics.add.collider` takes two game objects as inputs and creates collision between those two objects. `gameObject.setCollideWorldBounds` adds collision between a game object and your screen.
+2. Now add collision to the paddles. When adding collision- you have to use seperate methods for collision between game objects and a game object and the world. `this.physics.add.collider` takes two game objects as inputs and creates collision between those two objects. `gameObject.setCollideWorldBounds` adds collision between a game object and your screen.
 
 ``` JS title="game.js" linenums="1" hl_lines="14-15 17-18"
 
@@ -252,7 +252,7 @@ function create() {
 ```
 
 <br>
-3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. We do this by calling the `setImmovable` method on both player objects iniside the create function.
+3. Next, we need to ensure that when the ball makes contact with our paddle, the paddle does not move -  they are `immovable`. Call the `setImmovable` method on both player objects iniside the create function.
 
 
 
@@ -283,7 +283,7 @@ function create() {
 ## Input and Control
 
 <br>
-1. Back inside our create function, lets call `this` game instances `input.keybord.addKey` and `this.input.keyboard.createCursorKeys`. This will add these keys to our gameInstance letting it know to watch these keys for events. 
+1. Inside our create function, call `this` game instances `input.keybord.addKey` and `this.input.keyboard.createCursorKeys` to add these keys to our gameInstance. This lets it know to watch these keys for events. 
 
 ``` JS title="game.js" linenums="1" hl_lines="4-5 9"
 
@@ -301,7 +301,7 @@ function create() {
 ```
 
 <br>
-2. Now inside our `update` function, we are going to tell the game what to do when these `cursors` or `keys` are pressed and what to do when they are not. We can do so using `if` statements wrapped around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity.
+2. Inside our `update` function, we are going to tell the game what to do when these `cursors` or `keys` are pressed and what to do when they are not. We can do so using `if` statements wrapped around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity. Add the if statements.
 
 
 ``` JS title="game.js" linenums="1" hl_lines="4-6 8-10 12-14 16-18"
@@ -338,7 +338,7 @@ function update() {
     If you wanted to make a game where a character moves left and right, you would have to use the same strategy for the X axis. 
 
 <br>
-3. Now we need to make sure that when a key is not being pressed, the paddles stop. We can do this by calling the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
+3. Make sure that when a key is not being pressed, the paddles stop. Call the `player1` and `player2` `setVelocityY` methods in the update function and assigning a velocity of 0 to the paddles.
 
 ``` JS title="game.js" linenums="1" hl_lines="4-5"
 
@@ -368,7 +368,7 @@ function update() {
 ```
 
 <br>
-4. Now inside our update function, we are going to clamp the balls velocity. We can do this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast. By setting both these traits - we lock the ball into moving at one speed- perfect!
+4. Inside our update function, clamp the balls velocity. Do this by referring to our paddlespeed inside of an if condition, and changing the balls behavior if it gets to fast or slow. By setting both these traits - we lock the ball into moving at one speed- perfect!
 
 ``` JS title="game.js" linenums="1" hl_lines="15-17 19-21"
 
