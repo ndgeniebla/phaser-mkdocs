@@ -30,10 +30,10 @@ This document assumes you know the following:
 ##Procedures Overview
 The instruction sets below are an overview of creating a basic Pong game using Phaser 3.
 
-1. Setting up a Basic Phaser Project
-2. Pong: Creating and Configuring Our Game Instance 
-3. Pong: Creating Our First Game Objects and Player Characters
-4. Pong: Adding Win Conditions, Match Resetting, and Scoring System
+1. [Setting up a Basic Phaser Project](01-setting-up.md)
+2. [Pong: Creating and Configuring Our Game Instance ](02-configuring-creating-game-instance.md)
+3. [Pong: Creating Our First Game Objects and Player Characters](03-creating-game-objects.md)
+4. [Pong: Adding Win Conditions, Match Resetting, and Scoring System](04-final-features.md)
 
 ##Typographical Conventions
 
