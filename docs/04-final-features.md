@@ -174,7 +174,7 @@ function update() {
 }
 ```
 
-    1. The `if (... || ...)` conditional basically checks if either player has won the match. Only if this is true is when the game checks if the Spacebar was pressed.
+    1. The `if (... || ...)` conditional checks if either player has won the match. Only if this is true is when the game checks if the Spacebar was pressed.
     2. Setting the `isGameStarted` boolean back to false will put the game in the same state when it is first launched.
 
 ## Scoring System
