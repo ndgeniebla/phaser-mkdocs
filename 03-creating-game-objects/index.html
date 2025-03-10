@@ -1,0 +1,1369 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-configuring-creating-game-instance/">
+      
+      
+        <link rel="next" href="../04-final-features/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Pong: Creating Our First Game Objects and Player Characters - PhaserFirst</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pong-creating-our-first-game-objects-and-player-characters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PhaserFirst" class="md-header__button md-logo" aria-label="PhaserFirst" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M192 64C86 64 0 150 0 256s86 192 192 192h256c106 0 192-86 192-192S554 64 448 64zm304 104a40 40 0 1 1 0 80 40 40 0 1 1 0-80M392 304a40 40 0 1 1 80 0 40 40 0 1 1-80 0M168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24h-32v32c0 13.3-10.7 24-24 24s-24-10.7-24-24v-32h-32c-13.3 0-24-10.7-24-24s10.7-24 24-24h32z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PhaserFirst
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pong: Creating Our First Game Objects and Player Characters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PhaserFirst" class="md-nav__button md-logo" aria-label="PhaserFirst" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M192 64C86 64 0 150 0 256s86 192 192 192h256c106 0 192-86 192-192S554 64 448 64zm304 104a40 40 0 1 1 0 80 40 40 0 1 1 0-80M392 304a40 40 0 1 1 80 0 40 40 0 1 1-80 0M168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24h-32v32c0 13.3-10.7 24-24 24s-24-10.7-24-24v-32h-32c-13.3 0-24-10.7-24-24s10.7-24 24-24h32z"/></svg>
+
+    </a>
+    PhaserFirst
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-setting-up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting up a Basic Phaser Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-configuring-creating-game-instance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pong: Creating and Configuring Our Game Instance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Pong: Creating Our First Game Objects and Player Characters
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Pong: Creating Our First Game Objects and Player Characters
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preloading-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preloading Assets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-our-ball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making Our Ball
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-player-characters-a-tale-of-two-paddles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Player Characters: A Tale of Two Paddles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-and-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input and Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-final-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pong: Adding Win Conditions, Match Resetting, and Scoring System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="pong-creating-our-first-game-objects-and-player-characters">Pong: Creating Our First Game Objects and Player Characters</h1>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Configured and created a Phaser game instance.</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>In this section, we will cover how to preload assets, create game objects, assign them sprites,
+set their locations, and get them moving.</p>
+<h2 id="preloading-assets">Preloading Assets</h2>
+<p>Now that we have our game instance, it's time to add some game assets to give our players something to look at and control.</p>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+<p>The word "assets" has many definitions in the real world. In the context of game development, assets mean any digital content used by the video game to communicate information to the user about the state of the game. This can include audio, visual elements and animations.</p>
+</div>
+<h2 id="making-our-ball">Making Our Ball</h2>
+<p><br>
+1. Inside the <code>preload</code> function defined inside of <code>src/game.js</code> add two function calls to <code>this</code> game instance's <code>load.image()</code> method with the following name and path parameter:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">preload</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="hll"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="s1">&#39;ball&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;../assets/images/ball.png&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// name, path</span>
+</span></span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="hll"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="s1">&#39;paddle&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;assets/images/paddle.png&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// name, path</span>
+</span></span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+<p>This function tells the game instance to pre-load the images we want to use in the game itself. If you had other assets you wanted to load in such as music or animations, you would define them here as well using their respective <code>load</code> methods. </p>
+</div>
+<p><br>
+2. Directly above the <code>create()</code> function, define the following variables and one <code>keys</code> object to use inside of our <code>create()</code> and <code>update()</code> functions. These variables are used throughout our examples:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">ball</span><span class="p">;</span>
+</span></span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">player1</span><span class="p">;</span>
+</span></span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">player2</span><span class="p">;</span>
+</span></span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">paddleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">350</span><span class="p">;</span>
+</span></span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">isGameStarted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span></span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">cursors</span><span class="p">;</span>
+</span></span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+</span></span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You might be wondering why we declare <code>keys</code> as an object and <code>cursors</code> as an empty variable. This is because of how Phaser recognizes keys—it treats all your arrow keys as one pre-defined object called <code>cursors</code>, but other keys have to have their purpose defined individually. You'll notice as you continue through these instructions, we use slightly different language when creating our inputs. Make sure to pay attention to the differences as they do not work interchangeably.</p>
+</div>
+<p><br>
+3. Inside the <code>create()</code> function, <code>add</code> your first game object: the ball. By calling <code>this</code> game instance's <code>add.sprite</code> method, it adds a sprite (our preloaded image asset) to the ball, and places it in the center of our board. Find the center by dividing <code>this</code> game instance's <code>width</code> and <code>height</code> properties by two and setting those as the X and Y coordinates for the ball: </p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ball</span><span class="p">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="hll"><span class="w">        </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span></span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="hll"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// x parameter</span>
+</span></span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="hll"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// y parameter</span>
+</span></span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="hll"><span class="w">        </span><span class="sb">`ball`</span><span class="w"> </span><span class="c1">// sprite parameter</span>
+</span></span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+4. Moving to our <code>update()</code> function in the same file, set the initial velocity for our <code>ball</code> to add some behavior to our game object and get it moving:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="hll"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span></span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="hll"><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span></span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="hll"><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityX</span><span class="p">(</span><span class="nx">initialVelocityX</span><span class="p">);</span>
+</span></span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="hll"><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">initialVelocityY</span><span class="p">);</span>
+</span></span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+5. To ensure the balls location only <code>updates</code> when the game is started, add an <code>if</code> statement that contains all the code inside of our <code>update()</code> function. Inside this <code>if</code> statement, reference our <code>isGameStarted</code> variable:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">isGameStarted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityX</span><span class="p">(</span><span class="nx">initialVelocityX</span><span class="p">);</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">initialVelocityY</span><span class="p">);</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span></span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="p">}</span><span class="w"> </span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>At this point your ball will have stopped moving. Don't worry! This is intended behavior at the moment as we have not set our <code>isGameStarted</code> variable to <code>true</code>. This means that every time the game calls the <code>update()</code> function, it sees the <code>isGameStarted</code> variable is falsey and skips moving the ball.</p>
+</div>
+<p><br>
+6. To ensure the ball starts moving when the game is started, add an <code>if</code> statement that sets <code>isGameStarted</code> to <code>true</code> when the game calls the <code>update()</code> function for the first time: </p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span>
+<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isGameStarted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityX</span><span class="p">(</span><span class="nx">initialVelocityX</span><span class="p">);</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">initialVelocityY</span><span class="p">);</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="hll"><span class="w">        </span><span class="nx">isGameStarted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span></span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="p">}</span><span class="w"> </span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+7. Currently, our <code>ball</code> simply continues in one direction until it dissapears off the edge of the screen. Call the <code>setCollideWorldBounds</code> method on the <code>ball</code> to let the game know this element should detect colliding with the edge of our screen:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">    </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="hll"><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+8. Now that the <code>ball</code> is colliding, give it some bounce. Call <code>setBounce</code> on the <code>ball</code> variable to let the game know that when it does collide with something—it should bounce off instead of sticking to it:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span>
+<span class="normal"><a href="#__codelineno-7-8">8</a></span>
+<span class="normal"><a href="#__codelineno-7-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollisionWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="hll"><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span></span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="adding-player-characters-a-tale-of-two-paddles">Adding Player Characters: A Tale of Two Paddles</h2>
+<ol>
+<li>Call the <code>this</code> game instance's <code>physics.add.sprite</code> method inside of the <code>create()</code> function. When declaring our players, it's important to remember that we don't want our paddles to be pressed up against the edge of the screen. To do this, offset the paddles <code>x</code> and <code>y</code> parameters as well: </li>
+</ol>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">    </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollisionWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="hll"><span class="w">    </span><span class="nx">player1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span></span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="hll"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">),</span><span class="w"> </span><span class="c1">// x parameter with an offset        </span>
+</span></span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="hll"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// y parameter with an offset</span>
+</span></span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="hll"><span class="w">        </span><span class="sb">`paddle`</span>
+</span></span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="hll"><span class="w">    </span><span class="p">)</span>
+</span></span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="hll"><span class="w">    </span><span class="nx">player2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span></span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="hll"><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// x parameter with an offset</span>
+</span></span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="hll"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// y parameter with an offset</span>
+</span></span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="hll"><span class="w">        </span><span class="sb">`paddle`</span><span class="w"> </span>
+</span></span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="hll"><span class="w">    </span><span class="p">)</span>
+</span></span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Notice how in this step, the name of the sprite is not the same as the name of the variable.
+If your sprites are not rendering, it might be because you used the wrong value for the key of our sprite. While it can be helpful to have your assets share a name with your variables, it can cause confusion in larger projects where you might have to reuse the asset elsewhere.</p>
+<details class="abstract">
+<summary>Click To See An Example</summary>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">example.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">paddle</span><span class="p">;</span>
+</span></span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="hll"><span class="kd">let</span><span class="w"> </span><span class="nx">paddle</span><span class="p">;</span>
+</span></span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollisionWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="hll"><span class="w">    </span><span class="nx">paddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span></span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">),</span><span class="w"> </span><span class="c1">// x parameter with an offset        </span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// y parameter with an offset</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="hll"><span class="w">        </span><span class="sb">`paddle`</span>
+</span></span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="hll"><span class="w">    </span><span class="nx">paddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span></span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// x parameter with an offset</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// y parameter with an offset</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="hll"><span class="w">        </span><span class="sb">`paddle`</span><span class="w"> </span>
+</span></span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</div>
+<p><br>
+2. Now add collision to the paddles. When adding collision, you have to use separate methods for adding collision between game objects and adding collision between a game object and the world. <code>this.physics.add.collider</code> takes two game objects as inputs and creates collision between those two objects. <code>gameObject.setCollideWorldBounds</code> adds collision between a game object and your screen:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span>
+<span class="normal"><a href="#__codelineno-10-19">19</a></span>
+<span class="normal"><a href="#__codelineno-10-20">20</a></span>
+<span class="normal"><a href="#__codelineno-10-21">21</a></span>
+<span class="normal"><a href="#__codelineno-10-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">     </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollisionWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="nx">player1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">        </span><span class="c1">//..</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">    </span><span class="nx">player2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">        </span><span class="c1">//..</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="hll"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player1</span><span class="p">);</span>
+</span></span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="hll"><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player2</span><span class="p">);</span>
+</span></span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="hll"><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="hll"><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+3. Next, we need to ensure that when the <code>ball</code> makes contact with our paddle, the paddle does not move—they are <code>immovable</code>. Call the <code>setImmovable</code> method on both player objects inside the <code>create()</code> function:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">     </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">        </span><span class="c1">//... </span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollisionWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">    </span><span class="nx">player1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">        </span><span class="c1">//..</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">    </span><span class="nx">player2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="w"> </span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">        </span><span class="c1">//..</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player1</span><span class="p">);</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player2</span><span class="p">);</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="hll"><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">setImmovable</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="hll"><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">setImmovable</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="input-and-control">Input and Control</h2>
+<p><br>
+1. Inside our <code>create()</code> function, call <code>this</code> game instance's <code>input.keyboard.addKey</code> and <code>this.input.keyboard.createCursorKeys</code> to add these keys to our game instance. This lets the game know to watch these keys for events: </p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">    </span><span class="c1">//...</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="hll"><span class="w">    </span><span class="nx">cursors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">createCursorKeys</span><span class="p">();</span>
+</span></span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="hll"><span class="w">    </span><span class="nx">keys</span><span class="p">.</span><span class="nx">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">addKey</span><span class="p">(</span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Input</span><span class="p">.</span><span class="nx">Keyboard</span><span class="p">.</span><span class="nx">KeyCodes</span><span class="p">.</span><span class="nx">W</span><span class="p">);</span><span class="w"> </span>
+</span></span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">    </span><span class="c1">//don&#39;t worry! This might look intimidating but it simply lets our game</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">    </span><span class="c1">//instance know to expect input from the W key</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="hll"><span class="w">    </span><span class="nx">keys</span><span class="p">.</span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">addKey</span><span class="p">(</span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Input</span><span class="p">.</span><span class="nx">Keyboard</span><span class="p">.</span><span class="nx">KeyCodes</span><span class="p">.</span><span class="nx">S</span><span class="p">);</span>
+</span></span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+2. Inside our <code>update()</code> function, we are going to tell the game what to do when these <code>cursors</code> or <code>keys</code> are pressed and what to do when they are not. We can do so using <code>if</code> statements wrapped around some behavior for our paddles. In this case, we will make it so that triggering these events causes our paddles to gain or lose velocity. Add the <code>if</code> statements:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span>
+<span class="normal"><a href="#__codelineno-13-14">14</a></span>
+<span class="normal"><a href="#__codelineno-13-15">15</a></span>
+<span class="normal"><a href="#__codelineno-13-16">16</a></span>
+<span class="normal"><a href="#__codelineno-13-17">17</a></span>
+<span class="normal"><a href="#__codelineno-13-18">18</a></span>
+<span class="normal"><a href="#__codelineno-13-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">    </span><span class="c1">//...</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">up</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="hll"><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span></span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">down</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="hll"><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span></span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">w</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="hll"><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span></span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17"></a><span class="hll"><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18"></a><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span>
+</span></span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+<p>You might be wondering what the code means as the wording is odd, <code>cursor.down.isDown</code>? What this actually means is quite simple: <code>isDown</code> in this context means when the key is pressed down. </p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+<p>You might be wondering why we use negative paddle speeds when moving the paddles up. This is because Phaser perceives all positive velocity Y values to be moving from up to down, so if we want to move down to up, we have to use a negative value.
+If you wanted to make a game where a character moves left and right, you would have to use the same paradigm for the X axis. </p>
+</div>
+<p><br>
+3. Make sure that when a key is not being pressed, the paddles stop. Call the <code>player1</code> and <code>player2</code> <code>setVelocityY</code> methods in the <code>update()</code> function and assign a velocity of <code>0</code> to the paddles:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span>
+<span class="normal"><a href="#__codelineno-14-21">21</a></span>
+<span class="normal"><a href="#__codelineno-14-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">    </span><span class="c1">//...</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="hll"><span class="w">  </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span></span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="hll"><span class="w">  </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span></span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">up</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">down</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">w</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18"></a>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><br>
+4. Inside our <code>update()</code> function, clamp the balls velocity. Do this by referring to our paddlespeed inside of an <code>if</code> condition, and changing the balls behaviour if it gets too fast or slow. By setting both these traits, we lock the ball into moving at one speed:</p>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span>
+<span class="normal"><a href="#__codelineno-15-19">19</a></span>
+<span class="normal"><a href="#__codelineno-15-20">20</a></span>
+<span class="normal"><a href="#__codelineno-15-21">21</a></span>
+<span class="normal"><a href="#__codelineno-15-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="w">    </span><span class="c1">//...</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">up</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">down</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">velocity</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">paddleSpeed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="hll"><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span>
+</span></span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">velocity</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span></span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20"></a><span class="hll"><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span></span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21"></a><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span>
+</span></span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="admonition example">
+<p class="admonition-title">Experiment</p>
+<p>Try playing with the speed of the ball by increasing or decreasing its maximum and minimum velocity. Notice how when the max velocity is higher, it can put the players in unwinnable situations where the paddle moves to slowly to meet the ball. How about when it moves slowly? The game gets easier. By changing these values, we can increase and decrease the difficulty of our game!</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>If you have followed along with the tutorial so far, you should currently have a version of Pong that has two controllable paddles using the S and W keys for one player and the Up and Down arrows for the other. </p>
+<details class="abstract">
+<summary>Code</summary>
+<div class="language-JS highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">game.js</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-16-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-16-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-16-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-16-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-16-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-16-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-16-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-16-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-16-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-16-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-16-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-16-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-16-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-16-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-16-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-16-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-16-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-16-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-16-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-16-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-16-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-16-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-16-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-16-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-16-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-16-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-16-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-16-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-16-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-16-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-16-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-16-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-16-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-16-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-16-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-16-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-16-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-16-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-16-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-16-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-16-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-16-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-16-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-16-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-16-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-16-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-16-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-16-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-16-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-16-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-16-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-16-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-16-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-16-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-16-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-16-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-16-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-16-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-16-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-16-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-16-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-16-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-16-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-16-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-16-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-16-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-16-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-16-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-16-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-16-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-16-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-16-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-16-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-16-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-16-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-16-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-16-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-16-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-16-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-16-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-16-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-16-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-16-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-16-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-16-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-16-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-16-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-16-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-16-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-16-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-16-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-16-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-16-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-16-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-16-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-16-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-16-100">100</a></span>
+<span class="normal"><a href="#__codelineno-16-101">101</a></span>
+<span class="normal"><a href="#__codelineno-16-102">102</a></span>
+<span class="normal"><a href="#__codelineno-16-103">103</a></span>
+<span class="normal"><a href="#__codelineno-16-104">104</a></span>
+<span class="normal"><a href="#__codelineno-16-105">105</a></span>
+<span class="normal"><a href="#__codelineno-16-106">106</a></span>
+<span class="normal"><a href="#__codelineno-16-107">107</a></span>
+<span class="normal"><a href="#__codelineno-16-108">108</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">    </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">    </span><span class="nx">parent</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;game&#39;</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">800</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">640</span><span class="p">,</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">    </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">        </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Scale</span><span class="p">.</span><span class="nx">RESIZE</span><span class="p">,</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">        </span><span class="nx">autoCenter</span><span class="o">:</span><span class="w"> </span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Scale</span><span class="p">.</span><span class="nx">CENTER_BOTH</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">    </span><span class="nx">scene</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">        </span><span class="nx">preload</span><span class="p">,</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="w">        </span><span class="nx">create</span><span class="p">,</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="w">        </span><span class="nx">update</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17"></a>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">    </span><span class="nx">physics</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;arcade&#39;</span><span class="p">,</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="w">        </span><span class="nx">arcade</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21"></a><span class="w">            </span><span class="nx">gravity</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24"></a><span class="p">}</span>
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25"></a>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="kd">const</span><span class="w"> </span><span class="nx">game</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ball</span><span class="p">;</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28"></a><span class="kd">let</span><span class="w"> </span><span class="nx">player1</span><span class="p">;</span>
+</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29"></a><span class="kd">let</span><span class="w"> </span><span class="nx">player2</span><span class="p">;</span>
+</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="kd">let</span><span class="w"> </span><span class="nx">isGameStarted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31"></a><span class="kd">let</span><span class="w"> </span><span class="nx">cursors</span><span class="p">;</span>
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32"></a><span class="kd">const</span><span class="w"> </span><span class="nx">paddleSpeed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">350</span><span class="p">;</span>
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33"></a><span class="kd">let</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34"></a>
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35"></a><span class="kd">function</span><span class="w"> </span><span class="nx">preload</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="s2">&quot;ball&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;assets/images/ball.png&quot;</span><span class="p">);</span>
+</span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="s2">&quot;paddle&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;assets/images/paddle.png&quot;</span><span class="p">);</span>
+</span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38"></a><span class="p">}</span>
+</span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39"></a>
+</span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40"></a><span class="kd">function</span><span class="w"> </span><span class="nx">create</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41"></a><span class="w">    </span><span class="nx">ball</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span>
+</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44"></a><span class="w">        </span><span class="s1">&#39;ball&#39;</span>
+</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47"></a>
+</span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48"></a><span class="w">    </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setBounce</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49"></a>
+</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50"></a><span class="w">    </span><span class="nx">player1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span>
+</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">),</span>
+</span><span id="__span-16-52"><a id="__codelineno-16-52" name="__codelineno-16-52"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+</span><span id="__span-16-53"><a id="__codelineno-16-53" name="__codelineno-16-53"></a><span class="w">        </span><span class="s1">&#39;paddle&#39;</span>
+</span><span id="__span-16-54"><a id="__codelineno-16-54" name="__codelineno-16-54"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-16-55"><a id="__codelineno-16-55" name="__codelineno-16-55"></a><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">setImmovable</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-16-56"><a id="__codelineno-16-56" name="__codelineno-16-56"></a><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-16-57"><a id="__codelineno-16-57" name="__codelineno-16-57"></a>
+</span><span id="__span-16-58"><a id="__codelineno-16-58" name="__codelineno-16-58"></a><span class="w">    </span><span class="nx">player2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span>
+</span><span id="__span-16-59"><a id="__codelineno-16-59" name="__codelineno-16-59"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+</span><span id="__span-16-60"><a id="__codelineno-16-60" name="__codelineno-16-60"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">world</span><span class="p">.</span><span class="nx">bounds</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+</span><span id="__span-16-61"><a id="__codelineno-16-61" name="__codelineno-16-61"></a><span class="w">        </span><span class="s1">&#39;paddle&#39;</span>
+</span><span id="__span-16-62"><a id="__codelineno-16-62" name="__codelineno-16-62"></a><span class="w">    </span><span class="p">);</span>
+</span><span id="__span-16-63"><a id="__codelineno-16-63" name="__codelineno-16-63"></a>
+</span><span id="__span-16-64"><a id="__codelineno-16-64" name="__codelineno-16-64"></a><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">setImmovable</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-16-65"><a id="__codelineno-16-65" name="__codelineno-16-65"></a><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">setCollideWorldBounds</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span><span id="__span-16-66"><a id="__codelineno-16-66" name="__codelineno-16-66"></a>
+</span><span id="__span-16-67"><a id="__codelineno-16-67" name="__codelineno-16-67"></a><span class="w">    </span><span class="nx">cursors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">createCursorKeys</span><span class="p">();</span>
+</span><span id="__span-16-68"><a id="__codelineno-16-68" name="__codelineno-16-68"></a><span class="w">    </span><span class="nx">keys</span><span class="p">.</span><span class="nx">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">addKey</span><span class="p">(</span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Input</span><span class="p">.</span><span class="nx">Keyboard</span><span class="p">.</span><span class="nx">KeyCodes</span><span class="p">.</span><span class="nx">W</span><span class="p">);</span>
+</span><span id="__span-16-69"><a id="__codelineno-16-69" name="__codelineno-16-69"></a><span class="w">    </span><span class="nx">keys</span><span class="p">.</span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">keyboard</span><span class="p">.</span><span class="nx">addKey</span><span class="p">(</span><span class="nx">Phaser</span><span class="p">.</span><span class="nx">Input</span><span class="p">.</span><span class="nx">Keyboard</span><span class="p">.</span><span class="nx">KeyCodes</span><span class="p">.</span><span class="nx">S</span><span class="p">);</span>
+</span><span id="__span-16-70"><a id="__codelineno-16-70" name="__codelineno-16-70"></a>
+</span><span id="__span-16-71"><a id="__codelineno-16-71" name="__codelineno-16-71"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player1</span><span class="p">);</span>
+</span><span id="__span-16-72"><a id="__codelineno-16-72" name="__codelineno-16-72"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">physics</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">collider</span><span class="p">(</span><span class="nx">ball</span><span class="p">,</span><span class="w"> </span><span class="nx">player2</span><span class="p">);</span>
+</span><span id="__span-16-73"><a id="__codelineno-16-73" name="__codelineno-16-73"></a><span class="p">}</span>
+</span><span id="__span-16-74"><a id="__codelineno-16-74" name="__codelineno-16-74"></a>
+</span><span id="__span-16-75"><a id="__codelineno-16-75" name="__codelineno-16-75"></a><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-76"><a id="__codelineno-16-76" name="__codelineno-16-76"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">isGameStarted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-77"><a id="__codelineno-16-77" name="__codelineno-16-77"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-16-78"><a id="__codelineno-16-78" name="__codelineno-16-78"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">initialVelocityY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">150</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</span><span id="__span-16-79"><a id="__codelineno-16-79" name="__codelineno-16-79"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityX</span><span class="p">(</span><span class="nx">initialVelocityX</span><span class="p">);</span>
+</span><span id="__span-16-80"><a id="__codelineno-16-80" name="__codelineno-16-80"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">initialVelocityY</span><span class="p">);</span>
+</span><span id="__span-16-81"><a id="__codelineno-16-81" name="__codelineno-16-81"></a><span class="w">        </span><span class="nx">isGameStarted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-16-82"><a id="__codelineno-16-82" name="__codelineno-16-82"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-83"><a id="__codelineno-16-83" name="__codelineno-16-83"></a>
+</span><span id="__span-16-84"><a id="__codelineno-16-84" name="__codelineno-16-84"></a>
+</span><span id="__span-16-85"><a id="__codelineno-16-85" name="__codelineno-16-85"></a><span class="w">    </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span><span id="__span-16-86"><a id="__codelineno-16-86" name="__codelineno-16-86"></a><span class="w">    </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span><span id="__span-16-87"><a id="__codelineno-16-87" name="__codelineno-16-87"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">up</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-88"><a id="__codelineno-16-88" name="__codelineno-16-88"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-89"><a id="__codelineno-16-89" name="__codelineno-16-89"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-90"><a id="__codelineno-16-90" name="__codelineno-16-90"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursors</span><span class="p">.</span><span class="nx">down</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-91"><a id="__codelineno-16-91" name="__codelineno-16-91"></a><span class="w">        </span><span class="nx">player1</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-92"><a id="__codelineno-16-92" name="__codelineno-16-92"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-93"><a id="__codelineno-16-93" name="__codelineno-16-93"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">w</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-94"><a id="__codelineno-16-94" name="__codelineno-16-94"></a><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-95"><a id="__codelineno-16-95" name="__codelineno-16-95"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-96"><a id="__codelineno-16-96" name="__codelineno-16-96"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">isDown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-97"><a id="__codelineno-16-97" name="__codelineno-16-97"></a><span class="w">        </span><span class="nx">player2</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-98"><a id="__codelineno-16-98" name="__codelineno-16-98"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-99"><a id="__codelineno-16-99" name="__codelineno-16-99"></a>
+</span><span id="__span-16-100"><a id="__codelineno-16-100" name="__codelineno-16-100"></a>
+</span><span id="__span-16-101"><a id="__codelineno-16-101" name="__codelineno-16-101"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">velocity</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">paddleSpeed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-102"><a id="__codelineno-16-102" name="__codelineno-16-102"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-103"><a id="__codelineno-16-103" name="__codelineno-16-103"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-104"><a id="__codelineno-16-104" name="__codelineno-16-104"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">velocity</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-105"><a id="__codelineno-16-105" name="__codelineno-16-105"></a><span class="w">        </span><span class="nx">ball</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setVelocityY</span><span class="p">(</span><span class="o">-</span><span class="nx">paddleSpeed</span><span class="p">);</span>
+</span><span id="__span-16-106"><a id="__codelineno-16-106" name="__codelineno-16-106"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-107"><a id="__codelineno-16-107" name="__codelineno-16-107"></a>
+</span><span id="__span-16-108"><a id="__codelineno-16-108" name="__codelineno-16-108"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</details>
+</div>
+<h2 id="conclusion">Conclusion</h2>
+<p>By the end of this section, you will have learned the following:</p>
+<ul>
+<li>How to create game objects</li>
+<li>How to give game objects collision properties</li>
+<li>How to create input to control game objects</li>
+</ul>
+<p>Well done! <img alt="🥳" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f973.svg" title=":partying_face:" /> Now you can move onto the next step:</p>
+<p><strong><a href="../04-final-features/">Adding Win Conditions, Math Resetting, and Score Systems</a></strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../02-configuring-creating-game-instance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Pong: Creating and Configuring Our Game Instance">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Pong: Creating and Configuring Our Game Instance
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../04-final-features/" class="md-footer__link md-footer__link--next" aria-label="Next: Pong: Adding Win Conditions, Match Resetting, and Scoring System">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Pong: Adding Win Conditions, Match Resetting, and Scoring System
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Neil Geniebla and Jonathan Young
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ndgeniebla/phaser-mkdocs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "toc.integrate", "navigation.footer"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
