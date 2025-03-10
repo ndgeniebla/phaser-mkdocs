@@ -59,7 +59,7 @@ This allowed us to focus on writing documentation specific to the Phaser Framewo
 
 ## Conclusion
 
-By writing this documentation, we had a chance to learn the Phaser framework for ourselves, understand it's core concepts, and share it in an easy-to-consume manner. Doing so allowed us to practice writing clear and complete documentation for topics that we are not extremely knowledgeable on.
+By writing this documentation, we had a chance to learn the Phaser framework for ourselves, understand its core concepts, and share it in an easy-to-consume manner. Doing so allowed us to practice writing clear and complete documentation for topics that we are not extremely knowledgeable on.
 
 Thank you for reading our documentation for a basic Phaser App! Enjoy! :tada:
 
