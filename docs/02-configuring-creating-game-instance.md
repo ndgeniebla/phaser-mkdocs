@@ -10,7 +10,7 @@ In this section of creating Pong, we will cover how to configure a basic Phaser 
 ## Configuring the Game Instance
 Before creating a Phaser game instance, we have to configure it first. All the options for the configuration can be found inside [Phaser's Official Documentation](https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig), though we will only use a handful of these options in this simple Pong project.
 
-1. With VSCode open, navigate to the **src** folder and open the empty game.js file.
+1. With VSCode open, navigate to the **src** folder and open the empty `game.js` file.
 2. At the start of the file, create an empty `config` object:
 ```JS title="game.js" linenums="1"
 const config = {

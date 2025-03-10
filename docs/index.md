@@ -60,9 +60,9 @@ The instruction sets below are an overview of creating a basic Pong game using P
 
     "We will set `variableName` to `variableValue` because ..."
     
-5. General actions in the operating system (like adding folders) and navigating/clicking user interface elements in a program are bolded, like so:
+5. General actions in the operating system, navigating/clicking user interface elements in a program, and folder names are bolded, like so:
 
-    **File > New File**, **Open in Terminal**, **New Folder**
+    **File > New File**, **Open in Terminal**, **Folder Name**
 
     
 

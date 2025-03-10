@@ -269,7 +269,7 @@ function update() {
     
         The extra check for `scoreAdded` is necessary because Phaser calls the `update()` function on every frame that the game renders. If this extra check isn't done, the `p1Score` and `p2Score` variables will increment by one on every single frame instead of only when the player scores.
         
-        So if the game runs at 60 frames per second, then `p1score` and `p2score` would end up incrementing 60 times a second, which is not what we want.
+        So if the game runs at 60 frames per second, then `p1score` and `p2score` would end up incrementing by one 60 times a second, which is not what we want.
 
 
 4. In the `update()` function, set the `scoreAdded` boolean to `false` when the game is reset with Spacebar:
